@@ -3,5 +3,5 @@
 # To update the flake:
 # nix flake update
 
-sudo nixos-rebuild switch --flake .#server
+sudo nixos-rebuild switch --flake 'path:.#server'
 
