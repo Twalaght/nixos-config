@@ -9,13 +9,6 @@
     ./hardware-configuration.nix
     ../common
   ];
-  # Desktop environment.
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-  };
-
   # List of packages installed in desktop profile.
   environment.systemPackages = with pkgs; [
     ffmpeg
@@ -25,4 +18,27 @@
     ranger
     shellcheck
   ];
+
+  # GNOME Desktop environment.
+  services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+  };
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+  # Enable sound with pipewire.
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
 }
