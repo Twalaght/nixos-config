@@ -9,8 +9,7 @@
 }: {
   imports = [
     ../../vars
-    ../../modules/docker.nix
-    ../../modules/autoupdate.nix
+    ../../modules
   ];
 
   # Enable flakes.
@@ -81,21 +80,6 @@
 
   # Define system hostname.
   networking.hostName = "${config.host.hostname}";
-
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-
-    # TODO
-    # Enforce public key authentication and forbid root logins.
-    # settings.PasswordAuthentication = false;
-    # settings.KbdInteractiveAuthentication = false;
-    # settings.PermitRootLogin = "no";
-  };
-
-  # Open SSH access.
-  networking.firewall.allowedTCPPorts = [22];
-  networking.firewall.allowedUDPPorts = [22];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
