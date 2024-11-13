@@ -10,6 +10,7 @@
   imports = [
     ../../vars
     ../../modules
+    inputs.home-manager.nixosModules.default
   ];
 
   # Enable flakes.
@@ -33,7 +34,7 @@
   time.timeZone = config.host.timezone;
 
   # Select localisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "en_AU.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_AU.UTF-8";
     LC_IDENTIFICATION = "en_AU.UTF-8";
@@ -83,6 +84,14 @@
     ];
   };
   programs.zsh.enable = true;
+
+  # Enable home manager for the default user.
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "${config.default_user.username}" = import ../../modules/home-manager;
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
