@@ -6,6 +6,7 @@
   ...
 }: {
   imports = [
+    ../../vars
     ./hardware-configuration.nix
     ../common
   ];
