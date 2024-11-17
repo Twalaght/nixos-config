@@ -10,7 +10,17 @@
     ../../vars
     ./hardware-configuration.nix
     ../common
+    inputs.home-manager.nixosModules.default
   ];
+
+  # Enable home manager for the default user.
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "${config.default_user.username}" = import ../../modules/home-manager/desktop.nix;
+    };
+  };
+
   # List of packages installed in desktop profile.
   environment.systemPackages = with pkgs; [
     ffmpeg

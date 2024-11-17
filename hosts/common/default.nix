@@ -9,7 +9,6 @@
 }: {
   imports = [
     ../../modules
-    inputs.home-manager.nixosModules.default
   ];
 
   # Enable flakes.
@@ -87,14 +86,6 @@
     ];
   };
   programs.zsh.enable = true;
-
-  # Enable home manager for the default user.
-  home-manager = {
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-      "${config.default_user.username}" = import ../../modules/home-manager;
-    };
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
