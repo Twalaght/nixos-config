@@ -14,11 +14,6 @@
   # Enable flakes.
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
-
   # Define system hostname.
   networking.hostName = "${config.host.hostname}";
 
