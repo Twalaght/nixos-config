@@ -31,4 +31,7 @@
   # Open ports for web hosting.
   networking.firewall.allowedTCPPorts = [80 443];
   networking.firewall.allowedUDPPorts = [80 443];
+
+  # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
+  system.stateVersion = "24.05";
 }

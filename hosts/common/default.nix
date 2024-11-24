@@ -9,10 +9,10 @@
 }: {
   imports = [
     ../../modules
+    ./nix.nix
+    ./locale.nix
+    ./users.nix
   ];
-
-  # Enable flakes.
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Define system hostname.
   networking.hostName = "${config.host.hostname}";
@@ -22,29 +22,6 @@
   # Configure network proxy if necessary.
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Set your time zone.
-  time.timeZone = config.host.timezone;
-
-  # Select localisation properties.
-  i18n.defaultLocale = "en_AU.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_AU.UTF-8";
-    LC_IDENTIFICATION = "en_AU.UTF-8";
-    LC_MEASUREMENT = "en_AU.UTF-8";
-    LC_MONETARY = "en_AU.UTF-8";
-    LC_NAME = "en_AU.UTF-8";
-    LC_NUMERIC = "en_AU.UTF-8";
-    LC_PAPER = "en_AU.UTF-8";
-    LC_TELEPHONE = "en_AU.UTF-8";
-    LC_TIME = "en_AU.UTF-8";
-  };
-
-  # Configure console keymap.
-  console.keyMap = "us";
-
-  # Allow unfree packages.
-  nixpkgs.config.allowUnfree = true;
 
   # List of packages installed in common profile.
   environment.systemPackages = with pkgs; [
@@ -64,29 +41,4 @@
     wget
     zsh
   ];
-
-  # Manage users imperatively after initial setup.
-  users.mutableUsers = true;
-
-  # Define a primary user account. Set the password after creation with `passwd`.
-  users.users.${config.default_user.username} = {
-    isNormalUser = true;
-    description = "${config.default_user.description}";
-    extraGroups = ["networkmanager" "wheel"];
-    shell = pkgs.zsh;
-    initialHashedPassword = "$2b$12$o7hI24c80QPDTq0WUepU1.EqvJQM27z8/HGYynacFccjjTb23mdJS";
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/RgCQjdF6x7t0fNFAnhSUDLiyrVtez62MLBo6Kf3J+"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIfpDJbb+8RoCjec6dD0k1YzXqLlHrn5yx5cI3UXIyyV"
-    ];
-  };
-  programs.zsh.enable = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
 }
