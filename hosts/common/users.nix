@@ -1,8 +1,13 @@
 {
   config,
+  inputs,
   pkgs,
   ...
 }: {
+  imports = [
+    inputs.home-manager.nixosModules.default
+  ];
+
   # Enable zsh for the users default shell.
   environment.systemPackages = with pkgs; [
     zsh
@@ -24,4 +29,12 @@
     ];
   };
   programs.zsh.enable = true;
+
+  # Enable home manager for the default user.
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "${config.default_user.username}" = import ../../modules/home-manager/desktop.nix;
+    };
+  };
 }
