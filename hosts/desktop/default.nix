@@ -25,6 +25,8 @@
     python3
     ranger
     shellcheck
+
+    firefox
   ];
 
   # GNOME Desktop environment.
