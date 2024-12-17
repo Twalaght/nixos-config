@@ -1,6 +1,6 @@
 {
-  system,
   inputs,
+  system,
   ...
 }: {
   system.autoUpgrade = {
@@ -9,7 +9,7 @@
     flags = [
       "--update-input"
       "nixpkgs"
-      "-L" # Print build logs
+      "-L" # Print build logs.
     ];
     dates = "02:00";
     randomizedDelaySec = "45min";

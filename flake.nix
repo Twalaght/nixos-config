@@ -24,13 +24,13 @@
       server = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/server
+          ./hosts/nixos/server
         ];
       };
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/desktop
+          ./hosts/nixos/desktop
         ];
       };
     };

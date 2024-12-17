@@ -7,9 +7,13 @@
   ...
 }: {
   imports = [
-    ../../vars
+    ../../../vars
     ./hardware-configuration.nix
-    ../common
+
+	../../common/users/default_user.nix
+
+	../../../modules/nixos/common
+	../../../modules/nixos/optional/bootloader.nix
   ];
 
   # Set a variable such that the rebuild script remembers the target config.
@@ -25,6 +29,21 @@
     python3
     ranger
     shellcheck
+	rsync
+
+	firefox
+	steam
+	vencord
+	bitwarden
+	vscode
+	signal-desktop
+	obsidian
+	barrier
+	alacritty
+	jellyfin-media-player
+
+	wine64
+	bottles
   ];
 
   # GNOME Desktop environment.
@@ -48,6 +67,14 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+  };
+
+  # Enable home manager for the default user.
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "${config.default_user.username}" = import ../../../modules/home-manager/desktop.nix;
+    };
   };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
