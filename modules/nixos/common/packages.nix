@@ -20,6 +20,7 @@
     neofetch
     neovim
     pciutils
+    pre-commit
     stow
     wget
     zsh
