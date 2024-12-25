@@ -69,14 +69,6 @@
     pulse.enable = true;
   };
 
-  # Enable home manager for the default user.
-  home-manager = {
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-      "${config.default_user.username}" = import ../../../modules/home-manager/desktop.nix;
-    };
-  };
-
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
 }

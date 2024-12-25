@@ -4,10 +4,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    inputs.home-manager.nixosModules.default
-  ];
-
   # Define a primary user account. Set the password after creation with `passwd`.
   users.users.${config.default_user.username} = {
     isNormalUser = true;
