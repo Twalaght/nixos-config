@@ -8,14 +8,6 @@
     inputs.home-manager.nixosModules.default
   ];
 
-  # Enable zsh for the users default shell.
-  environment.systemPackages = with pkgs; [
-    zsh
-  ];
-
-  # Manage users imperatively after initial setup.
-  users.mutableUsers = true;
-
   # Define a primary user account. Set the password after creation with `passwd`.
   users.users.${config.default_user.username} = {
     isNormalUser = true;
@@ -29,12 +21,4 @@
     ];
   };
   programs.zsh.enable = true;
-
-  # Enable home manager for the default user.
-  home-manager = {
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-      "${config.default_user.username}" = import ../../modules/home-manager/desktop.nix;
-    };
-  };
 }

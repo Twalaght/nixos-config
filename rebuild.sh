@@ -5,7 +5,7 @@ if [ -z "${NIXOS_SYSTEM_FLAKE_CONFIGURATION}" ]; then
 	exit 1
 fi
 
-HARDWARE_FILE="hosts/${NIXOS_SYSTEM_FLAKE_CONFIGURATION}/hardware-configuration.nix"
+HARDWARE_FILE="hosts/nixos/${NIXOS_SYSTEM_FLAKE_CONFIGURATION}/hardware-configuration.nix"
 if [ ! -f "${HARDWARE_FILE}" ]; then
 	echo "Generating hardware config for host ${NIXOS_SYSTEM_FLAKE_CONFIGURATION}"
 	nixos-generate-config --show-hardware-config >> "${HARDWARE_FILE}"
