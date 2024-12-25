@@ -10,10 +10,10 @@
     ../../../vars
     ./hardware-configuration.nix
 
-	../../common/users/default_user.nix
+    ../../common/users/default_user.nix
 
-	../../../modules/nixos/common
-	../../../modules/nixos/optional/bootloader.nix
+    ../../../modules/nixos/common
+    ../../../modules/nixos/optional/bootloader.nix
   ];
 
   # Set a variable such that the rebuild script remembers the target config.
@@ -29,21 +29,21 @@
     python3
     ranger
     shellcheck
-	rsync
+    rsync
 
-	firefox
-	steam
-	vencord
-	bitwarden
-	vscode
-	signal-desktop
-	obsidian
-	barrier
-	alacritty
-	jellyfin-media-player
+    firefox
+    steam
+    vencord
+    bitwarden
+    vscode
+    signal-desktop
+    obsidian
+    barrier
+    alacritty
+    jellyfin-media-player
 
-	wine64
-	bottles
+    wine64
+    bottles
   ];
 
   # GNOME Desktop environment.
