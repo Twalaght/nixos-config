@@ -1,1 +1,4 @@
-vars/config.nix
+**/vars/config.nix
+backup-*.nix
+wip-*.nix
+todo-*.nix
