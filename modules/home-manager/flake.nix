@@ -9,7 +9,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     dotfiles = {
-      url = "github:twalaght/dotfiles/revamp";
+      url = "github:twalaght/dotfiles";
       flake = false;
     };
 
@@ -43,6 +43,7 @@
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
       extraSpecialArgs = {
+        inherit dotfiles;
         inherit vscode-extensions;
 
         pkgs-unstable = import nixpkgs-unstable {
