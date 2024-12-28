@@ -33,7 +33,9 @@
 
     firefox
     steam
-    vencord
+    (discord.override {
+      withVencord = true;
+    })
     bitwarden
     vscode
     signal-desktop
