@@ -14,6 +14,7 @@
 
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/bootloader.nix
+    ../../../modules/nixos/optional/pipewire.nix
   ];
 
   # Set a variable such that the rebuild script remembers the target config.
@@ -59,16 +60,6 @@
       layout = "us";
       variant = "";
     };
-  };
-
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
   };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
