@@ -14,6 +14,7 @@
 
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/bootloader.nix
+    ../../../modules/nixos/optional/cinnamon.nix
     ../../../modules/nixos/optional/pipewire.nix
   ];
 
@@ -48,19 +49,6 @@
     wine64
     bottles
   ];
-
-  # GNOME Desktop environment.
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-
-    # Configure keymap in X.
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-  };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
