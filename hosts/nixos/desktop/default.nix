@@ -27,7 +27,24 @@
   environment.systemPackages = with pkgs; [
     ffmpeg
     imagemagick
+
+    feishin
+    mpv
+
     p7zip
+    kdePackages.ark
+    (gruvbox-gtk-theme.overrideAttrs {
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out/share/themes
+        cd themes
+        ./install.sh -n GruvboxPatched -c dark light -t all \
+          --tweaks macos -d "$out/share/themes"
+        runHook postInstall
+      '';
+    })
+    papirus-icon-theme
+
     python3
     ranger
     shellcheck
@@ -45,6 +62,7 @@
     barrier
     alacritty
     jellyfin-media-player
+    vlc
 
     wine64
     bottles
