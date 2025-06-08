@@ -5,9 +5,6 @@
   # Manage users imperatively after initial setup.
   users.mutableUsers = true;
 
-  # Allow unfree packages.
-  nixpkgs.config.allowUnfree = true;
-
   # Play nice with non-linux dual booted systems.
   time.hardwareClockInLocalTime = true;
 }

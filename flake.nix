@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     sops-nix = {
@@ -17,16 +16,21 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    pkgs-unstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
   in {
     nixosConfigurations = {
       server = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-
-          pkgs-unstable = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
+          inherit pkgs;
+          inherit pkgs-unstable;
         };
 
         modules = [
@@ -36,11 +40,8 @@
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-
-          pkgs-unstable = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
+          inherit pkgs;
+          inherit pkgs-unstable;
         };
 
         modules = [
