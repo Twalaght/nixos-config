@@ -15,6 +15,7 @@
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/bootloader.nix
     ../../../modules/nixos/optional/cinnamon.nix
+    ../../../modules/nixos/optional/nvidia.nix
     ../../../modules/nixos/optional/pipewire.nix
   ];
 
