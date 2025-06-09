@@ -2,6 +2,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   inputs,
   ...
@@ -26,49 +27,52 @@
   };
 
   # List of packages installed in desktop profile.
-  environment.systemPackages = with pkgs; [
-    ffmpeg
-    imagemagick
+  environment.systemPackages =
+    (with pkgs; [
+      ffmpeg
+      imagemagick
 
-    feishin
-    mpv
+      feishin
+      mpv
 
-    p7zip
-    kdePackages.ark
-    (gruvbox-gtk-theme.overrideAttrs {
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/share/themes
-        cd themes
-        ./install.sh -n GruvboxPatched -c dark light -t all \
-          --tweaks macos -d "$out/share/themes"
-        runHook postInstall
-      '';
-    })
-    papirus-icon-theme
+      p7zip
+      kdePackages.ark
+      (gruvbox-gtk-theme.overrideAttrs {
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/share/themes
+          cd themes
+          ./install.sh -n GruvboxPatched -c dark light -t all \
+            --tweaks macos -d "$out/share/themes"
+          runHook postInstall
+        '';
+      })
+      papirus-icon-theme
 
-    python3
-    ranger
-    shellcheck
-    rsync
+      python3
+      ranger
+      shellcheck
+      rsync
 
-    firefox
-    steam
-    (discord.override {
-      withVencord = true;
-    })
-    bitwarden
-    vscode
-    signal-desktop
-    obsidian
-    barrier
-    alacritty
-    jellyfin-media-player
-    vlc
+      firefox
+      steam
 
-    wine64
-    bottles
-  ];
+      vscode
+      signal-desktop
+      obsidian
+      barrier
+      alacritty
+      jellyfin-media-player
+      vlc
+
+      wineWowPackages.stable
+      winetricks
+      bottles
+    ])
+    ++ (with pkgs-unstable; [
+      bitwarden-desktop
+      discord
+    ]);
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
