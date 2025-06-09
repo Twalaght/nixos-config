@@ -7,6 +7,7 @@
   imports = [
     ../vars
     ../modules/common
+    ../modules/optional/kitty.nix
     ../modules/optional/vscode.nix
   ];
 
