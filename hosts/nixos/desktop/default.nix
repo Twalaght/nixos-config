@@ -17,6 +17,7 @@
     ../../../modules/nixos/optional/cinnamon.nix
     ../../../modules/nixos/optional/nvidia.nix
     ../../../modules/nixos/optional/pipewire.nix
+    ../../../modules/nixos/optional/steam.nix
   ];
 
   # Set a variable such that the rebuild script remembers the target config.
