@@ -21,6 +21,7 @@
     neovim
     pciutils
     pre-commit
+    shellcheck
     stow
     wget
     zsh
