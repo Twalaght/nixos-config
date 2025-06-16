@@ -115,7 +115,9 @@
         "vscode-insiders" = "Code - Insiders";
         "vscodium" = "VSCodium";
       }
-      .${programs.vscode.package.pname};
+      .${
+        programs.vscode.package.pname
+      };
     configPath = "${config.xdg.configHome}/${configDirName}/User/settings.json";
   in {
     clearExistingVSCodeConfig = {
