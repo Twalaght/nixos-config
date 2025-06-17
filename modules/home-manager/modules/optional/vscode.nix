@@ -5,7 +5,7 @@
   vscode-extensions,
   ...
 }: rec {
-  programs.vscode = {
+  programs.vscode.profiles.default = {
     enable = true;
     package = pkgs-unstable.vscode;
 
@@ -116,7 +116,7 @@
         "vscodium" = "VSCodium";
       }
       .${
-        programs.vscode.package.pname
+        programs.vscode.profiles.default.package.pname
       };
     configPath = "${config.xdg.configHome}/${configDirName}/User/settings.json";
   in {
