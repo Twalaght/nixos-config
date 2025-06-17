@@ -2,6 +2,6 @@
   imports = [
     ./neovim.nix
     ./git.nix
-    # ./zsh.nix
+    ./zsh.nix
   ];
 }
