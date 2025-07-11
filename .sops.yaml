@@ -1,0 +1,7 @@
+keys:
+-   &primary "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPsirKwbch1x70YDPb3ncA6xdRX0Um+smb1QomR6u/4L"
+creation_rules:
+-   path_regex: secrets/secrets.yaml$
+    key_groups:
+    -   age:
+        -   *primary
