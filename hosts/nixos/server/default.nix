@@ -7,13 +7,26 @@
 }: {
   imports = [
     ../../../vars
+    ../../../secrets
+
     ./hardware-configuration.nix
 
     ../../common/users/default_user.nix
 
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/bootloader.nix
+
+    (import ../../../modules/nixos/optional/smb.nix {
+      smbTarget = "//10.25.0.196/toasterdog";
+      mountPoint = "/mnt/wolfram";
+      credentialsPath = ''${config.sops.secrets."server/smb/config".path}'';
+    })
   ];
+
+  # Set SMB config secrets owner.
+  sops.secrets."server/smb/config" = {
+    owner = config.users.users.${config.default_user.username}.name;
+  };
 
   # Set a variable such that the rebuild script remembers the target config.
   environment.variables = {
