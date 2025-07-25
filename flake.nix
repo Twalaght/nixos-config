@@ -15,50 +15,19 @@
     nixpkgs-unstable,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    pkgs-unstable = import nixpkgs-unstable {
-      inherit system;
-      config.allowUnfree = true;
+    # Import the system helper function with required inputs.
+    mkSystem = import ./lib/mksystem.nix {
+      inherit inputs nixpkgs nixpkgs-unstable;
     };
   in {
     nixosConfigurations = {
-      server = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          inherit pkgs-unstable;
-        };
-
-        modules = [
-          ({
-            config,
-            lib,
-            ...
-          }: {
-            nixpkgs.pkgs = pkgs;
-          })
-          ./hosts/nixos/server
-        ];
+      server = mkSystem "server" {
+        system = "x86_64-linux";
+        preferUnstable = false;
       };
-      desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          inherit pkgs-unstable;
-        };
-
-        modules = [
-          ({
-            config,
-            lib,
-            ...
-          }: {
-            nixpkgs.pkgs = pkgs;
-          })
-          ./hosts/nixos/desktop
-        ];
+      desktop = mkSystem "desktop" {
+        system = "x86_64-linux";
+        preferUnstable = true;
       };
     };
   };
