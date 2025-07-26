@@ -23,11 +23,9 @@
     nixosConfigurations = {
       server = mkSystem "server" {
         system = "x86_64-linux";
-        preferUnstable = false;
       };
       desktop = mkSystem "desktop" {
         system = "x86_64-linux";
-        preferUnstable = true;
       };
     };
   };
