@@ -11,5 +11,5 @@ if [ ! -f "${HARDWARE_FILE}" ]; then
 	nixos-generate-config --show-hardware-config >> "${HARDWARE_FILE}"
 fi
 
-sudo nixos-rebuild switch --flake "path:.#${NIXOS_SYSTEM_FLAKE_CONFIGURATION}"
+sudo nixos-rebuild "${1:-switch}" --flake "path:.#${NIXOS_SYSTEM_FLAKE_CONFIGURATION}"
 
