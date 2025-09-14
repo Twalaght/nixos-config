@@ -11,6 +11,9 @@
       # Default to last booted GRUB entry.
       default = "saved";
       extraEntries = "GRUB_SAVEDEFAULT=true";
+
+      # Enable memtest for debug purposes.
+      memtest86.enable = true;
     };
   };
 }
