@@ -19,14 +19,20 @@
     (import ../../../modules/nixos/optional/smb.nix {
       smbTarget = "//10.25.0.196/toasterdog";
       mountPoint = "/mnt/wolfram";
-      credentialsPath = ''${config.sops.secrets."server/smb/config".path}'';
+      credentialsPath = ''${config.sops.secrets."server/smb/wolfram".path}'';
+    })
+
+    (import ../../../modules/nixos/optional/smb.nix {
+      smbTarget = "//10.25.0.123/sambashare";
+      mountPoint = "/mnt/toasterdog";
+      credentialsPath = ''${config.sops.secrets."server/smb/hightower".path}'';
     })
   ];
 
-  # Set SMB config secrets owner.
-  sops.secrets."server/smb/config" = {
-    owner = config.users.users.${config.default_user.username}.name;
-  };
+  # Set SMB config secrets owner for all config files.
+  sops.secrets =
+    lib.genAttrs ["server/smb/wolfram" "server/smb/hightower"]
+    (_: {owner = config.users.users.${config.default_user.username}.name;});
 
   # Set a variable such that the rebuild script remembers the target config.
   environment.variables = {
