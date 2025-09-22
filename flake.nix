@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-	winapps = {
+    winapps = {
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -18,21 +18,19 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
-	winapps,
+    winapps,
     ...
   } @ inputs: let
+    x86 = "x86_64-linux";
+
     # Import the system helper function with required inputs.
     mkSystem = import ./lib/mksystem.nix {
       inherit inputs nixpkgs nixpkgs-unstable winapps;
     };
   in {
     nixosConfigurations = {
-      server = mkSystem "server" {
-        system = "x86_64-linux";
-      };
-      desktop = mkSystem "desktop" {
-        system = "x86_64-linux";
-      };
+      server = mkSystem "server" {system = x86;};
+      desktop = mkSystem "desktop" {system = x86;};
     };
   };
 }

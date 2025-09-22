@@ -1,9 +1,9 @@
 # Create a NixOS system with standard defaults.
-{
+args @ {
   inputs,
   nixpkgs,
   nixpkgs-unstable,
-  winapps,
+  ...
 }: name: {system}: let
   pkgs = import nixpkgs {
     inherit system;
@@ -14,13 +14,16 @@
     inherit system;
     config.allowUnfree = true;
   };
+
+  # Build dynamically from any additional arguments explicitly provided.
+  additionalArguments = builtins.removeAttrs args ["nixpkgs" "nixpkgs-unstable" "name" "system"];
 in
   nixpkgs.lib.nixosSystem rec {
-    specialArgs = {
-      inherit inputs;
-      inherit pkgs-unstable;
-	  inherit winapps;
-    };
+    specialArgs =
+      {
+        inherit inputs pkgs-unstable;
+      }
+      // additionalArguments;
 
     modules = [
       {nixpkgs.pkgs = pkgs;}
