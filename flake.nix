@@ -7,17 +7,23 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+	winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     nixpkgs-unstable,
+	winapps,
     ...
   } @ inputs: let
     # Import the system helper function with required inputs.
     mkSystem = import ./lib/mksystem.nix {
-      inherit inputs nixpkgs nixpkgs-unstable;
+      inherit inputs nixpkgs nixpkgs-unstable winapps;
     };
   in {
     nixosConfigurations = {

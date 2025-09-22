@@ -3,6 +3,7 @@
   inputs,
   nixpkgs,
   nixpkgs-unstable,
+  winapps,
 }: name: {system}: let
   pkgs = import nixpkgs {
     inherit system;
@@ -18,6 +19,7 @@ in
     specialArgs = {
       inherit inputs;
       inherit pkgs-unstable;
+	  inherit winapps;
     };
 
     modules = [

@@ -5,6 +5,7 @@
   pkgs-unstable,
   lib,
   inputs,
+  winapps,
   ...
 }: {
   imports = [
@@ -68,11 +69,17 @@
       wineWowPackages.stable
       winetricks
       bottles
+
+	  freerdp
     ])
     ++ (with pkgs-unstable; [
       bitwarden-desktop
       discord
-    ]);
+    ])
+	++ [
+      winapps.packages."x86_64-linux".winapps
+      winapps.packages."x86_64-linux".winapps-launcher # optional
+    ];
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
