@@ -70,13 +70,17 @@
       winetricks
       bottles
 
-	  freerdp
+      freerdp
+
+      # Music players
+      audacious
+      feishin
     ])
     ++ (with pkgs-unstable; [
       bitwarden-desktop
       discord
     ])
-	++ [
+    ++ [
       winapps.packages."x86_64-linux".winapps
       winapps.packages."x86_64-linux".winapps-launcher # optional
     ];
