@@ -13,7 +13,7 @@
     cifs-utils
   ];
 
-  fileSystems = lib.mkIf (mountPoint != null && smbTarget != null && builtins.pathExists credentialsPath) {
+  fileSystems = lib.mkIf (mountPoint != null && smbTarget != null && credentialsPath != null) {
     "${mountPoint}" = {
       device = "${smbTarget}";
       fsType = "cifs";
