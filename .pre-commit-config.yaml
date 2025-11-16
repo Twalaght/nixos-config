@@ -4,3 +4,20 @@ repos:
     hooks:
     # Requires Alejandra to be previously installed in the system
     -   id: alejandra-system
+-   repo: local
+    hooks:
+    # Requires Statix to be previously installed in the system
+    -   id: statix
+        name: statix
+        entry: |
+          bash -c '
+            for f in "$@"; do
+              statix check "$f"
+            done
+          '
+        language: system
+        types: [nix]
+-   repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+    -   id: shellcheck
