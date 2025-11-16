@@ -1,9 +1,13 @@
-# Create a NixOS system with standard defaults.
+# Create a NixOS/Darwin/WSL system with standardised config.
 {
   inputs,
   nixpkgs,
   nixpkgs-unstable,
-}: name: {system}: let
+}: name: {
+  system,
+  darwin ? false,
+  wsl ? false,
+}: let
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
@@ -13,6 +17,13 @@
     inherit system;
     config.allowUnfree = true;
   };
+
+  systemType =
+    if darwin
+    then "darwin"
+    else if wsl
+    then "wsl"
+    else "nixos";
 in
   nixpkgs.lib.nixosSystem rec {
     specialArgs = {
@@ -21,7 +32,22 @@ in
     };
 
     modules = [
+      # If building a WSL machine, include the relevant import.
+      (
+        if wsl
+        then inputs.nixos-wsl.nixosModules.wsl
+        else {}
+      )
+
       {nixpkgs.pkgs = pkgs;}
-      ../hosts/nixos/${name}/default.nix
+      ../hosts/${systemType}/${name}/default.nix
+
+      # Expose the Darwin and WSL variables for usage within modules.
+      {
+        config._module.args = {
+          isDarwin = darwin;
+          isWsl = wsl;
+        };
+      }
     ];
   }
