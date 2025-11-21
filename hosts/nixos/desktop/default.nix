@@ -16,6 +16,7 @@
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/bootloader.nix
     ../../../modules/nixos/optional/cinnamon.nix
+    ../../../modules/nixos/optional/desktop-cli.nix
     ../../../modules/nixos/optional/nvidia.nix
     ../../../modules/nixos/optional/pipewire.nix
     ../../../modules/nixos/optional/steam.nix
@@ -29,9 +30,6 @@
   # List of packages installed in desktop profile.
   environment.systemPackages =
     (with pkgs; [
-      ffmpeg
-      imagemagick
-
       feishin
       mpv
 
@@ -49,7 +47,6 @@
       })
       papirus-icon-theme
 
-      python3
       ranger
       shellcheck
       rsync

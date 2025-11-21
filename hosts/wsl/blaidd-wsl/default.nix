@@ -11,17 +11,13 @@
 
     ../../common/users/default-user.nix
     ../../../modules/nixos/common
+    ../../../modules/nixos/optional/desktop-cli.nix
   ];
 
   # Set a variable such that the rebuild script remembers the target config.
   environment.variables = {
     NIXOS_SYSTEM_FLAKE_CONFIGURATION = "blaidd-wsl";
   };
-
-  environment.systemPackages = with pkgs; [
-    git
-    neovim
-  ];
 
   wsl = {
     enable = true;
