@@ -26,4 +26,7 @@
     wget
     zsh
   ];
+
+  # Allow running pre-compiled executables.
+  programs.nix-ld.enable = true;
 }
