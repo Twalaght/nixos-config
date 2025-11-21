@@ -6,6 +6,7 @@
     ./networking.nix
     ./nixos.nix
     ./packages.nix
+    ./python.nix
     ./security.nix
     ./sshd.nix
   ];
