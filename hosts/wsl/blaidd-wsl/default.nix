@@ -9,7 +9,7 @@
   imports = [
     ../../../vars
 
-    ../../common/users/default_user.nix
+    ../../common/users/default-user.nix
     ../../../modules/nixos/common
   ];
 
