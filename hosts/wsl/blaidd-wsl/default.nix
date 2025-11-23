@@ -12,6 +12,7 @@
     ../../common/users/default-user.nix
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/desktop-cli.nix
+    ../../../modules/wsl
   ];
 
   # Set a variable such that the rebuild script remembers the target config.
