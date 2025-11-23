@@ -34,11 +34,6 @@
     lib.genAttrs ["server/smb/wolfram" "server/smb/hightower"]
     (_: {owner = config.users.users.${config.default_user.username}.name;});
 
-  # Set a variable such that the rebuild script remembers the target config.
-  environment.variables = {
-    NIXOS_SYSTEM_FLAKE_CONFIGURATION = "server";
-  };
-
   # Fix for virtual machine hardware passthrough.
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 

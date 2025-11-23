@@ -27,6 +27,7 @@
 in
   nixpkgs.lib.nixosSystem rec {
     specialArgs = {
+      inherit name;
       inherit inputs;
       inherit pkgs-unstable;
     };

@@ -15,11 +15,6 @@
     ../../../modules/wsl
   ];
 
-  # Set a variable such that the rebuild script remembers the target config.
-  environment.variables = {
-    NIXOS_SYSTEM_FLAKE_CONFIGURATION = "blaidd-wsl";
-  };
-
   wsl = {
     enable = true;
     defaultUser = "${config.default_user.username}";

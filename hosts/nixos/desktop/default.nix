@@ -22,11 +22,6 @@
     ../../../modules/nixos/optional/steam.nix
   ];
 
-  # Set a variable such that the rebuild script remembers the target config.
-  environment.variables = {
-    NIXOS_SYSTEM_FLAKE_CONFIGURATION = "desktop";
-  };
-
   # List of packages installed in desktop profile.
   environment.systemPackages =
     (with pkgs; [
