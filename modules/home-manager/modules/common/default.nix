@@ -1,7 +1,8 @@
 {...}: {
   imports = [
-    ./neovim.nix
     ./git.nix
+    ./homemanager.nix
+    ./neovim.nix
     ./zsh.nix
   ];
 }

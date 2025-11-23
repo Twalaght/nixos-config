@@ -21,34 +21,30 @@
   outputs = {
     nixpkgs,
     nixpkgs-unstable,
-    nix-vscode-extensions,
-    dotfiles,
     home-manager,
+    dotfiles,
+    nix-vscode-extensions,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
+    lib = nixpkgs.lib;
+
+    # List of users and supported system architectures to make configurations for.
+    users = ["admin" "admin-desktop"];
+    systems = ["x86_64-linux" "x86_64-darwin"];
+
+    # Import the home helper function with required inputs.
+    mkHome = import ./lib/mkhome.nix {
+      inherit inputs nixpkgs nixpkgs-unstable home-manager dotfiles nix-vscode-extensions;
     };
-    pkgs-unstable = import nixpkgs-unstable {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    vscode-extensions = nix-vscode-extensions.extensions.${system};
   in {
     home-manager.useGlobalPkgs = true;
-    homeConfigurations."admin" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      modules = [./users/admin.nix];
-
-      # Optionally use extraSpecialArgs to pass through arguments to home.nix.
-      extraSpecialArgs = {
-        inherit pkgs-unstable;
-        inherit dotfiles;
-        inherit vscode-extensions;
-      };
-    };
+    homeConfigurations = lib.listToAttrs (lib.concatMap
+      (user:
+        map (system: {
+          name = "${user}-${system}";
+          value = mkHome user {inherit system;};
+        })
+        systems)
+      users);
   };
 }

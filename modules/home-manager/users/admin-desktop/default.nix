@@ -5,10 +5,10 @@
 }: {
   nixpkgs.config.allowUnfree = true;
   imports = [
-    ../vars
-    ../modules/common
-    ../modules/optional/kitty.nix
-    ../modules/optional/vscode.nix
+    ../../vars
+    ../../modules/common
+    ../../modules/optional/kitty.nix
+    ../../modules/optional/vscode.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should manage.
