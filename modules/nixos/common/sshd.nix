@@ -18,7 +18,4 @@
   # Open SSH access.
   networking.firewall.allowedTCPPorts = [22];
   networking.firewall.allowedUDPPorts = [22];
-
-  # Enable the SSH agent.
-  programs.ssh.startAgent = true;
 }
