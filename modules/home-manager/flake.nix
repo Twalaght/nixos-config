@@ -26,8 +26,6 @@
     nix-vscode-extensions,
     ...
   } @ inputs: let
-    lib = nixpkgs.lib;
-
     # List of users and supported system architectures to make configurations for.
     users = ["admin" "admin-desktop"];
     systems = ["x86_64-linux" "x86_64-darwin"];
@@ -38,7 +36,7 @@
     };
   in {
     home-manager.useGlobalPkgs = true;
-    homeConfigurations = lib.listToAttrs (lib.concatMap
+    homeConfigurations = nixpkgs.lib.listToAttrs (nixpkgs.lib.concatMap
       (user:
         map (system: {
           name = "${user}-${system}";
