@@ -1,12 +1,19 @@
 {
   pkgs,
   dotfiles,
+  name,
+  system,
   ...
 }: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     dotDir = ".config/shell/zsh";
+
+    # Ensure Zsh has the flake config set, as it can be unreliable with the dotfiles setup.
+    envExtra = ''
+      export HOME_MANAGER_FLAKE_CONFIGURATION="${name}-${system}";
+    '';
 
     zplug = {
       enable = true;
