@@ -21,4 +21,3 @@ if [ ! -f "${HARDWARE_FILE}" ] && [[ "${SYSTEM_TYPE}" != "wsl" ]]; then
 fi
 
 sudo "${REBUILD_COMMAND}" "${1:-switch}" --flake "path:.#${NIXOS_SYSTEM_FLAKE_CONFIGURATION}"
-
