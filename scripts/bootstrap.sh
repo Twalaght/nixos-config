@@ -25,4 +25,3 @@ git clone https://github.com/Twalaght/nixos-config.git ~/nixos-config
 )
 
 echo "Done! Remember to edit your vars/config.nix and /modules/home-manager/vars/config.nix files before building"
-
