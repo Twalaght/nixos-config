@@ -1,5 +1,6 @@
 # Create a NixOS/Darwin/WSL system with standardised config.
 {
+  self,
   inputs,
   nixpkgs,
   nixpkgs-unstable,
@@ -18,6 +19,11 @@
     config.allowUnfree = true;
   };
 
+  systemFunc =
+    if darwin
+    then inputs.nix-darwin.lib.darwinSystem
+    else nixpkgs.lib.nixosSystem;
+
   systemType =
     if darwin
     then "darwin"
@@ -25,8 +31,9 @@
     then "wsl"
     else "nixos";
 in
-  nixpkgs.lib.nixosSystem rec {
+  systemFunc rec {
     specialArgs = {
+      inherit self;
       inherit name;
       inherit inputs;
       inherit pkgs-unstable;
