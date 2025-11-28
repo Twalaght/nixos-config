@@ -9,9 +9,12 @@
   darwin ? false,
   wsl ? false,
 }: let
+  localOverlay = import ../overlays;
+
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
+    overlays = [localOverlay];
   };
 
   pkgs-unstable = import nixpkgs-unstable {
