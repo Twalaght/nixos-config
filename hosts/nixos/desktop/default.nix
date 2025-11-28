@@ -14,6 +14,7 @@
     ../../common/users/default-user.nix
 
     ../../../modules/nixos/common
+    ../../../modules/nixos/optional/adb.nix
     ../../../modules/nixos/optional/bootloader.nix
     ../../../modules/nixos/optional/cinnamon.nix
     ../../../modules/nixos/optional/desktop-cli.nix
