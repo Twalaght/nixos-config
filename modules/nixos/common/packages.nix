@@ -9,6 +9,7 @@
   environment.systemPackages = with pkgs; [
     # Nix ecosystem.
     alejandra
+    nix-init
     sops
     statix
 
