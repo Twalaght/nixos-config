@@ -11,10 +11,9 @@
 
     ./hardware-configuration.nix
 
-    ../../common/users/default-user.nix
-
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/bootloader.nix
+    ../../../modules/users
 
     (import ../../../modules/nixos/optional/smb.nix {
       smbTarget = "//10.25.0.196/toasterdog";
@@ -29,10 +28,12 @@
     })
   ];
 
+  users.mantissa.enable = true;
+
   # Set SMB config secrets owner for all config files.
   sops.secrets =
     lib.genAttrs ["server/smb/wolfram" "server/smb/hightower"]
-    (_: {owner = config.users.users.${config.default_user.username}.name;});
+    (_: {owner = config.users.users.${config.vars.user_mapping.mantissa.name}.name;});
 
   # Fix for virtual machine hardware passthrough.
   hardware.enableRedistributableFirmware = lib.mkDefault true;

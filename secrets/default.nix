@@ -11,6 +11,6 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     defaultSopsFormat = "yaml";
-    age.sshKeyPaths = ["/home/${config.default_user.username}/.ssh/nixos_sops"];
+    age.sshKeyPaths = ["/home/${config.vars.user_mapping.mantissa.name}/.ssh/nixos_sops"];
   };
 }

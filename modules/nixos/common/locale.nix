@@ -1,6 +1,6 @@
 {config, ...}: {
   # Set your time zone.
-  time.timeZone = config.host.timezone;
+  time.timeZone = config.vars.host.timezone;
 
   # Select localisation properties.
   i18n.defaultLocale = "en_AU.UTF-8";

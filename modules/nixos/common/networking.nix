@@ -1,6 +1,6 @@
 {config, ...}: {
   # Define system hostname.
-  networking.hostName = "${config.host.hostname}";
+  networking.hostName = config.vars.host.hostname;
 
   # Networking.
   networking.networkmanager.enable = true;

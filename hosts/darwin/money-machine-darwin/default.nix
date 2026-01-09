@@ -17,7 +17,7 @@
   nix.settings.experimental-features = "nix-command flakes";
 
   system = {
-    primaryUser = "${config.default_user.username}";
+    primaryUser = config.vars.user_mapping.mantissa.name;
     defaults.NSGlobalDomain = {
       InitialKeyRepeat = 25;
       KeyRepeat = 2;

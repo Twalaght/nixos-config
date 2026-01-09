@@ -11,8 +11,6 @@
     ../../../vars
     ./hardware-configuration.nix
 
-    ../../common/users/default-user.nix
-
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/adb.nix
     ../../../modules/nixos/optional/bootloader.nix
@@ -21,7 +19,10 @@
     ../../../modules/nixos/optional/nvidia.nix
     ../../../modules/nixos/optional/pipewire.nix
     ../../../modules/nixos/optional/steam.nix
+    ../../../modules/users
   ];
+
+  users.mantissa.enable = true;
 
   # List of packages installed in desktop profile.
   environment.systemPackages =

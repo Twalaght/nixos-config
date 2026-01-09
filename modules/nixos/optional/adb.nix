@@ -1,5 +1,5 @@
 # Android Debug Bridge.
 {config, ...}: {
   programs.adb.enable = true;
-  users.users."${config.default_user.username}".extraGroups = ["adbusers"];
+  users.users."${config.vars.user_mapping.mantissa.name}".extraGroups = ["adbusers"];
 }

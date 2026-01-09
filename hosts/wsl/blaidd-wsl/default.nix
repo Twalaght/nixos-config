@@ -8,17 +8,18 @@
 }: {
   imports = [
     ../../../vars
-
-    ../../common/users/default-user.nix
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/adb.nix
     ../../../modules/nixos/optional/desktop-cli.nix
+    ../../../modules/users
     ../../../modules/wsl
   ];
 
+  users.mantissa.enable = true;
+
   wsl = {
     enable = true;
-    defaultUser = "${config.default_user.username}";
+    defaultUser = config.vars.user_mapping.mantissa.name;
     wslConf.automount.options = "metadata";
   };
 
