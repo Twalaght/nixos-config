@@ -6,8 +6,8 @@
 
   # Set the username and home directory for the user being managed.
   home = {
-    username = "${config.default_user.username}";
-    homeDirectory = "/home/${config.default_user.username}";
+    username = config.vars.user_mapping.mantissa.name;
+    homeDirectory = "/home/${config.vars.user_mapping.mantissa.name}";
   };
 
   home.stateVersion = "24.05";

@@ -27,7 +27,7 @@
     ...
   } @ inputs: let
     # List of users and supported system architectures to make configurations for.
-    users = ["admin" "admin-desktop"];
+    users = ["mantissa" "mantissa-desktop"];
     systems = ["x86_64-linux" "x86_64-darwin"];
 
     # Import the home helper function with required inputs.
