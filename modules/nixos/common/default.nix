@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   imports = [
     ./autoupdate.nix
     ./docker.nix
@@ -11,4 +11,7 @@
     ./ssh.nix
     ./sshd.nix
   ];
+
+  systemSettings.docker.enable = true;
+  systemSettings.docker.users = [config.vars.user_mapping.mantissa.name];
 }
