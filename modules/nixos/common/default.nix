@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   imports = [
     ./autoupdate.nix
     ./docker.nix
@@ -12,6 +16,14 @@
     ./sshd.nix
   ];
 
-  systemSettings.docker.enable = true;
-  systemSettings.docker.users = [config.vars.user_mapping.mantissa.name];
+  systemSettings = {
+    # Autoupdate
+    autoupdate.enable = lib.mkDefault true;
+
+    # Docker
+    docker.enable = lib.mkDefault true;
+    docker.users = lib.mkDefault [config.vars.user_mapping.mantissa.name];
+
+    # TODO - Other common modules.
+  };
 }

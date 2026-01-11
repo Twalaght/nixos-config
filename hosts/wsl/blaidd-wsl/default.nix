@@ -15,6 +15,9 @@
     ../../../modules/wsl
   ];
 
+  # TODO
+  # systemSettings.autoupdate.enable = false;
+
   users.mantissa.enable = true;
 
   wsl = {
