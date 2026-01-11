@@ -5,11 +5,11 @@
   ...
 }: let
   username = config.vars.user_mapping.io.name;
-  description = config.vars.user_mapping.io.description;
+  inherit (config.vars.user_mapping.io) description;
   cfg = config.users.io;
 in {
   options.users.io = {
-    enable = lib.mkEnableOption "Enable the user account for `io`.";
+    enable = lib.mkEnableOption "Enable the user account for `io`";
     additionalGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [];

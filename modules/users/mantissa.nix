@@ -5,11 +5,11 @@
   ...
 }: let
   username = config.vars.user_mapping.mantissa.name;
-  description = config.vars.user_mapping.mantissa.description;
+  inherit (config.vars.user_mapping.mantissa) description;
   cfg = config.users.mantissa;
 in {
   options.users.mantissa = {
-    enable = lib.mkEnableOption "Enable the user account for `mantissa`.";
+    enable = lib.mkEnableOption "Enable the user account for `mantissa`";
     additionalGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [];
