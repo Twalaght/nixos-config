@@ -24,6 +24,8 @@
     docker.enable = lib.mkDefault true;
     docker.users = lib.mkDefault [config.vars.user_mapping.mantissa.name];
 
-    # TODO - Other common modules.
+    # Locale
+    locale.enable = lib.mkDefault true;
+    locale.timeZone = lib.mkDefault config.vars.host.timezone;
   };
 }
