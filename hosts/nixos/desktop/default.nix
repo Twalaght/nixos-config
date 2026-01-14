@@ -54,7 +54,7 @@
       vscode
       signal-desktop
       obsidian
-      barrier
+      input-leap
       alacritty
       jellyfin-media-player
       vlc

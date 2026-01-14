@@ -12,7 +12,6 @@
     ./packages.nix
     ./python.nix
     ./security.nix
-    ./ssh.nix
     ./sshd.nix
   ];
 
