@@ -26,5 +26,9 @@
     # Locale
     locale.enable = lib.mkDefault true;
     locale.timeZone = lib.mkDefault config.vars.host.timezone;
+
+    # Networking
+    networking.enable = lib.mkDefault true;
+    networking.hostname = lib.mkDefault config.vars.host.hostname;
   };
 }
