@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 if [ -z "${NIXOS_SYSTEM_FLAKE_CONFIGURATION}" ]; then
-	echo "NIXOS_SYSTEM_FLAKE_CONFIGURATION is unset, please set it before building"
-	exit 1
+	echo "NIXOS_SYSTEM_FLAKE_CONFIGURATION is unset, choose a host from:"
+	for host in $(find hosts -mindepth 2 -maxdepth 2 -type d -printf '%f\n' | sort); do
+		echo "  - $host"
+	done
+	read -rp "Host: " NIXOS_SYSTEM_FLAKE_CONFIGURATION
 fi
 
 SYSTEM_TYPE="nixos"
