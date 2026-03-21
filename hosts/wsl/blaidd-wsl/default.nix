@@ -15,8 +15,16 @@
     ../../../modules/wsl
   ];
 
-  # TODO
-  # systemSettings.autoupdate.enable = false;
+  programs.ssh.startAgent = true;
+
+  # Common system packages.
+  environment.systemPackages =
+    (with pkgs; [
+      hugo
+    ])
+    ++ (with pkgs-unstable; [
+      yt-dlp
+    ]);
 
   users.mantissa.enable = true;
 
