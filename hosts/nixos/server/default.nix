@@ -13,19 +13,8 @@
 
     ../../../modules/nixos/common
     ../../../modules/nixos/optional/bootloader.nix
+    ../../../modules/nixos/optional/smb.nix
     ../../../modules/users
-
-    (import ../../../modules/nixos/optional/smb.nix {
-      smbTarget = "//10.25.0.196/toasterdog";
-      mountPoint = "/mnt/wolfram";
-      credentialsPath = ''${config.sops.secrets."server/smb/wolfram".path}'';
-    })
-
-    (import ../../../modules/nixos/optional/smb.nix {
-      smbTarget = "//10.25.0.123/sambashare";
-      mountPoint = "/mnt/toasterdog";
-      credentialsPath = ''${config.sops.secrets."server/smb/hightower".path}'';
-    })
   ];
 
   users.mantissa.enable = true;
@@ -34,6 +23,17 @@
   sops.secrets =
     lib.genAttrs ["server/smb/wolfram" "server/smb/hightower"]
     (_: {owner = config.users.users.${config.vars.user_mapping.mantissa.name}.name;});
+
+  systemSettings.smb = {
+    enable = true;
+    shares = [
+      {
+        smbTarget = "//10.25.0.196/toasterdog";
+        mountPoint = "/mnt/wolfram";
+        credentialsPath = ''${config.sops.secrets."server/smb/wolfram".path}'';
+      }
+    ];
+  };
 
   # Fix for virtual machine hardware passthrough.
   hardware.enableRedistributableFirmware = lib.mkDefault true;
