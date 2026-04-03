@@ -21,7 +21,7 @@
 
   # Set SMB config secrets owner for all config files.
   sops.secrets =
-    lib.genAttrs ["server/smb/wolfram" "server/smb/hightower"]
+    lib.genAttrs ["server/smb/wolfram"]
     (_: {owner = config.users.users.${config.vars.user_mapping.mantissa.name}.name;});
 
   systemSettings.smb = {
@@ -30,6 +30,11 @@
       {
         smbTarget = "//10.25.0.196/toasterdog";
         mountPoint = "/mnt/wolfram";
+        credentialsPath = ''${config.sops.secrets."server/smb/wolfram".path}'';
+      }
+      {
+        smbTarget = "//10.25.0.196/main/Media";
+        mountPoint = "/mnt/wolfram_main_media";
         credentialsPath = ''${config.sops.secrets."server/smb/wolfram".path}'';
       }
     ];
