@@ -1,10 +1,14 @@
-{lib, ...}:
+{
+  name,
+  lib,
+  ...
+}:
 with lib; {
   options.vars.host = {
     hostname = mkOption {
       type = types.str;
       description = "System hostname";
-      default = "nixos";
+      default = "nixos-${name}";
     };
     timezone = mkOption {
       type = types.str;
