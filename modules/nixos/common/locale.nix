@@ -30,14 +30,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Select localisation properties.
+    # Set localisation properties.
     i18n.defaultLocale = cfg.defaultLocale;
-    # i18n.extraLocaleSettings = cfg.extraLocaleSettings;
+    i18n.extraLocales = ["${cfg.defaultLocale}/UTF-8"];
+    i18n.extraLocaleSettings = {
+      LC_ALL = cfg.defaultLocale; # This overrides all other LC_* settings.
+    };
 
-    # Configure console key map.
     console.keyMap = cfg.keyMap;
-
-    # Set time zone.
     time.timeZone = cfg.timeZone;
   };
 }
