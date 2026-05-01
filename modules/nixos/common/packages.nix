@@ -15,9 +15,10 @@
     # Standard system packages.
     bash
     busybox
+    fastfetch
+    file
     git
     htop
-    neofetch
     neovim
     pciutils
     pre-commit
