@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ./autoupdate.nix
     ./docker.nix
     ./locale.nix
     ./networking.nix
@@ -16,9 +15,6 @@
   ];
 
   systemSettings = {
-    # Autoupdate
-    autoupdate.enable = lib.mkDefault true;
-
     # Docker
     docker.enable = lib.mkDefault true;
     docker.users = lib.mkDefault [config.vars.user_mapping.mantissa.name];
