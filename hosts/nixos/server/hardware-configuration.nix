@@ -28,6 +28,11 @@
     options = ["fmask=0022" "dmask=0022"];
   };
 
+  fileSystems."/home/jono/docker/cache/jellyfin/cache" = {
+    device = "/dev/disk/by-uuid/c8e1474b-6282-4b7b-be8e-092b70082ff9";
+    fsType = "ext4";
+  };
+
   swapDevices = [];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -35,12 +40,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.br-5d5822511c66.useDHCP = lib.mkDefault true;
-  # networking.interfaces.br-c6e72d55809b.useDHCP = lib.mkDefault true;
-  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.ens18.useDHCP = lib.mkDefault true;
-  # networking.interfaces.vethc03719a.useDHCP = lib.mkDefault true;
-  # networking.interfaces.vethc34c2ec.useDHCP = lib.mkDefault true;
+  networking.interfaces.ens18.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
