@@ -17,14 +17,14 @@
 
   programs.ssh.startAgent = true;
 
+  # Explicitly disable wireless to avoid WPA supplicant having issues.
+  networking.wireless.enable = lib.mkForce false;
+
   # Common system packages.
-  environment.systemPackages =
-    (with pkgs; [
-      hugo
-    ])
-    ++ (with pkgs-unstable; [
-      yt-dlp
-    ]);
+  environment.systemPackages = with pkgs; [
+    hugo
+    yt-dlp
+  ];
 
   users.mantissa.enable = true;
 
