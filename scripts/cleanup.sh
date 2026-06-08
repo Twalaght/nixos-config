@@ -36,14 +36,14 @@ if [[ -n "$expiry" ]]; then
 	echo "Running nix garbage collection..."
 	if [[ "$expiry" != "all" ]]; then
 		echo "Expiring generations older than $expiry days"
-		# command -v home-manager &> /dev/null && home-manager expire-generations "-${expiry}" days
-		# nix-collect-garbage --delete-older-than "${expiry}d"
-		# sudo nix-collect-garbage --delete-older-than "${expiry}d"
+		command -v home-manager &> /dev/null && home-manager expire-generations "-${expiry}" days
+		nix-collect-garbage --delete-older-than "${expiry}d"
+		sudo nix-collect-garbage --delete-older-than "${expiry}d"
 	else
 		echo "Expiring all previous generations"
-		# command -v home-manager &> /dev/null && home-manager expire-generations -0 days
-		# nix-collect-garbage -d
-		# sudo nix-collect-garbage -d
+		command -v home-manager &> /dev/null && home-manager expire-generations -0 days
+		nix-collect-garbage -d
+		sudo nix-collect-garbage -d
 	fi
 	exit 0
 fi
