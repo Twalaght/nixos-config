@@ -56,4 +56,3 @@ if [[ "$optimise" == "true" ]]; then
 	echo "Done"
 	exit 0
 fi
-
