@@ -1,9 +1,11 @@
 {...}: {
   programs.git = {
     enable = true;
-    userName = "Twalaght";
-    userEmail = "52785900+Twalaght@users.noreply.github.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Twalaght";
+        email = "52785900+Twalaght@users.noreply.github.com";
+      };
       push.autoSetupRemote = true;
       advice.skippedCherryPicks = "false";
     };

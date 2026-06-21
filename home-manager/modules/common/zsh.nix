@@ -1,6 +1,7 @@
 {
   pkgs,
   dotfiles,
+  config,
   name,
   system,
   ...
@@ -8,7 +9,7 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    dotDir = ".config/shell/zsh";
+    dotDir = "${config.xdg.configHome}/shell/zsh";
 
     # Ensure Zsh has the flake config set, as it can be unreliable with the dotfiles setup.
     envExtra = ''

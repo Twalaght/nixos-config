@@ -10,5 +10,5 @@
     homeDirectory = "/home/${config.vars.user_mapping.mantissa.name}";
   };
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.05";
 }
