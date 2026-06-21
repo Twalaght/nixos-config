@@ -1,0 +1,26 @@
+name: Nix Flake Check
+on: [push]
+  # push:
+  #   branches: [ main, master ]
+  # pull_request:
+jobs:
+  nix-check:
+    name: Run Flake Check (--all-systems)
+    runs-on: ubuntu-latest
+    # Required for Magic Nix Cache to authenticate with GitHub's cache backend
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      # 1. Check out the repository code
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+      # 2. Install Nix with Flakes support optimized for CI
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      # 3. Magic Nix Cache converts GHA Cache into a local Nix binary store
+      - name: Setup Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+      # 4. Run the evaluation check across all systems
+      - name: Run Nix Flake Check
+        run: nix flake check --all-systems --print-build-logs
