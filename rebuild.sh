@@ -18,7 +18,7 @@ elif [[ "${NIXOS_SYSTEM_FLAKE_CONFIGURATION}" == *-darwin ]]; then
 fi
 
 HARDWARE_FILE="hosts/${SYSTEM_TYPE}/${NIXOS_SYSTEM_FLAKE_CONFIGURATION}/hardware-configuration.nix"
-if [ ! -f "${HARDWARE_FILE}" ] && [[ "${SYSTEM_TYPE}" != "wsl" ]]; then
+if [ ! -f "${HARDWARE_FILE}" ] && [[ "${SYSTEM_TYPE}" == "nixos" ]]; then
 	echo "Generating hardware config for host ${NIXOS_SYSTEM_FLAKE_CONFIGURATION}"
 	nixos-generate-config --show-hardware-config >> "${HARDWARE_FILE}"
 fi
