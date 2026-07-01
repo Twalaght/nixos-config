@@ -83,7 +83,7 @@ in {
         name = group;
         value = lib.mkDefault {};
       })
-      groups
+      (groups ++ cfg.additionalGroups)
     );
   };
 }
