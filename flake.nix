@@ -24,11 +24,12 @@
     nixpkgs,
     nixpkgs-unstable,
     nix-darwin,
+    nixos-wsl,
     ...
   } @ inputs: let
     # Import the system helper function with required inputs.
     mkSystem = import ./lib/mksystem.nix {
-      inherit self inputs nixpkgs nixpkgs-unstable;
+      inherit self inputs nixpkgs nixpkgs-unstable nix-darwin nixos-wsl;
     };
   in {
     nixosConfigurations = {

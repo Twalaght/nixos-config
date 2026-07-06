@@ -4,6 +4,8 @@
   inputs,
   nixpkgs,
   nixpkgs-unstable,
+  nix-darwin,
+  nixos-wsl,
 }: name: {
   system,
   darwin ? false,
@@ -21,7 +23,7 @@
 
   systemFunc =
     if darwin
-    then inputs.nix-darwin.lib.darwinSystem
+    then nix-darwin.lib.darwinSystem
     else nixpkgs.lib.nixosSystem;
 
   systemType =
@@ -32,18 +34,19 @@
     else "nixos";
 in
   systemFunc rec {
-    specialArgs = {
-      inherit self;
-      inherit name;
-      inherit inputs;
-      inherit pkgs-unstable;
-    };
+    specialArgs =
+      inputs
+      // {
+        inherit self;
+        inherit inputs;
+        inherit pkgs-unstable;
+      };
 
     modules = [
       # If building a WSL machine, include the relevant import.
       (
         if wsl
-        then inputs.nixos-wsl.nixosModules.wsl
+        then nixos-wsl.nixosModules.wsl
         else {}
       )
 
@@ -53,6 +56,7 @@ in
       # Expose the Darwin and WSL variables for usage within modules.
       {
         config._module.args = {
+          inherit name;
           isDarwin = darwin;
           isWsl = wsl;
         };
