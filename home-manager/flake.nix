@@ -1,6 +1,4 @@
 {
-  description = "Home Manager configuration for all users";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -19,11 +17,10 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     nixpkgs-unstable,
     home-manager,
-    dotfiles,
-    nix-vscode-extensions,
     ...
   } @ inputs: let
     # List of users and supported system architectures to make configurations for.
@@ -32,7 +29,7 @@
 
     # Import the home helper function with required inputs.
     mkHome = import ./lib/mkhome.nix {
-      inherit inputs nixpkgs nixpkgs-unstable home-manager dotfiles nix-vscode-extensions;
+      inherit self inputs nixpkgs nixpkgs-unstable home-manager;
     };
   in {
     home-manager.useGlobalPkgs = true;

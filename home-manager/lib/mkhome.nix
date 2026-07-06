@@ -1,11 +1,10 @@
 # Create a user home with standardised config.
 {
+  self,
   inputs,
   nixpkgs,
   nixpkgs-unstable,
   home-manager,
-  dotfiles,
-  nix-vscode-extensions,
   ...
 }: name: {system}: let
   pkgs = import nixpkgs {
@@ -17,21 +16,26 @@
     inherit system;
     config.allowUnfree = true;
   };
-
-  vscode-extensions = nix-vscode-extensions.extensions.${system};
 in
-  home-manager.lib.homeManagerConfiguration rec {
+  inputs.home-manager.lib.homeManagerConfiguration rec {
+    extraSpecialArgs =
+      inputs
+      // {
+        inherit self;
+        inherit inputs;
+        inherit pkgs-unstable;
+      };
+
     inherit pkgs;
 
     modules = [
       ../users/${name}
-    ];
 
-    extraSpecialArgs = {
-      inherit name;
-      inherit system;
-      inherit pkgs-unstable;
-      inherit dotfiles;
-      inherit vscode-extensions;
-    };
+      {
+        config._module.args = {
+          inherit name;
+          inherit system;
+        };
+      }
+    ];
   }

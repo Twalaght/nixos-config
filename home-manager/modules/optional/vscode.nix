@@ -2,9 +2,12 @@
   pkgs,
   pkgs-unstable,
   config,
-  vscode-extensions,
+  inputs,
+  system,
   ...
-}: rec {
+}: let
+  vscode-extensions = inputs.nix-vscode-extensions.extensions.${system};
+in rec {
   programs.vscode.profiles.default = {
     enable = true;
     package = pkgs-unstable.vscode;
