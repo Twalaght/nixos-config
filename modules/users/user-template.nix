@@ -5,10 +5,10 @@
   ...
 }: {
   name,
-  admin ? true,
+  admin ? false,
   noPassword ? false,
-  usernameOverride ? null,
-  descriptionOverride ? null,
+  username ? null,
+  description ? null,
   shell ? pkgs.zsh,
   initialHashedPassword ? "$2b$12$OYdcZxJ36JbTLIs5mHa45eXkJGinnFgHBmo2.t9FqAEhEyeg3yqA2",
   extraGroups ? [],
@@ -17,30 +17,25 @@
   cfg = config.users.${name};
   mapping = config.vars.user_mapping.${name} or {};
   shellName = lib.getName shell;
-  adminFlag =
-    if cfg.adminOverride != null
-    then cfg.adminOverride
-    else admin;
   groups =
-    if adminFlag == true
+    if cfg.admin == true
     then ["networkmanager" "wheel"]
     else extraGroups;
-
-  username =
-    if usernameOverride == null
+  userName =
+    if username == null
     then mapping.name or name
-    else usernameOverride;
-  description =
-    if descriptionOverride == null
+    else username;
+  userDescription =
+    if description == null
     then mapping.description or name
-    else descriptionOverride;
+    else description;
 in {
   options.users.${name} = {
     enable = lib.mkEnableOption "Enable the user account for `${name}`";
-    adminOverride = lib.mkOption {
-      type = lib.types.nullOr lib.types.bool;
-      default = null;
-      description = "Force the admin status of the user.";
+    admin = lib.mkOption {
+      type = lib.types.bool;
+      default = admin;
+      description = "Admin status of the user";
     };
     additionalGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -57,14 +52,14 @@ in {
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = !(adminFlag && noPassword);
+        assertion = !(cfg.admin && noPassword);
         message = "User '${name}' cannot be admin and have no password at the same time";
       }
     ];
 
-    users.users.${username} = {
+    users.users.${userName} = {
       isNormalUser = true;
-      inherit description;
+      description = userDescription;
       extraGroups = groups ++ cfg.additionalGroups;
       inherit shell;
       password = lib.mkIf (noPassword == true) "";
