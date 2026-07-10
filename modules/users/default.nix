@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./glorp.nix
     ./io.nix
     ./mantissa.nix
   ];
