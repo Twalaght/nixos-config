@@ -59,6 +59,7 @@ in
           inherit name;
           isDarwin = darwin;
           isWsl = wsl;
+          myLib = import ./helpers.nix {inherit (pkgs) lib;};
         };
       }
     ];
