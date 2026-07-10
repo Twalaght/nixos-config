@@ -1,34 +1,42 @@
 {
-  config,
-  inputs,
   lib,
+  config,
   pkgs,
   ...
-}: {
-  # Common system packages.
-  environment.systemPackages = with pkgs; [
-    # Nix ecosystem.
-    alejandra
-    sops
-    statix
+}: let
+  cfg = config.systemSettings.packages;
+in {
+  options.systemSettings.packages = {
+    enable = lib.mkEnableOption "Enable default system packages";
+  };
 
-    # Standard system packages.
-    bash
-    busybox
-    fastfetch
-    file
-    git
-    htop
-    neovim
-    pciutils
-    pre-commit
-    ranger
-    shellcheck
-    stow
-    wget
-    zsh
-  ];
+  config = lib.mkIf cfg.enable {
+    # Common system packages.
+    environment.systemPackages = with pkgs; [
+      # Nix ecosystem.
+      alejandra
+      sops
+      statix
 
-  # Allow running pre-compiled executables.
-  programs.nix-ld.enable = true;
+      # Standard system packages.
+      bash
+      busybox
+      fastfetch
+      file
+      git
+      htop
+      neovim
+      pciutils
+      pre-commit
+      ranger
+      shellcheck
+      stow
+      wget
+      zsh
+    ];
+
+    # TODO - Need to make this it's own module.
+    # Allow running pre-compiled executables.
+    programs.nix-ld.enable = true;
+  };
 }

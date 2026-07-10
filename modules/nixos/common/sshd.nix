@@ -1,21 +1,29 @@
 {
+  lib,
   config,
   pkgs,
   ...
-}: {
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-
-    # Enforce public key authentication and forbid root logins.
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
-    };
+}: let
+  cfg = config.systemSettings.sshd;
+in {
+  options.systemSettings.sshd = {
+    enable = lib.mkEnableOption "Enable SSHD";
   };
 
-  # Open SSH access.
-  networking.firewall.allowedTCPPorts = [22];
-  networking.firewall.allowedUDPPorts = [22];
+  config = lib.mkIf cfg.enable {
+    services.openssh = {
+      enable = true;
+
+      # Enforce public key authentication and forbid root logins.
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
+
+    # Open SSH access.
+    networking.firewall.allowedTCPPorts = [22];
+    networking.firewall.allowedUDPPorts = [22];
+  };
 }

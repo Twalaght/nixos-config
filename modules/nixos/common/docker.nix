@@ -1,7 +1,7 @@
 {
-  config,
   lib,
   myLib,
+  config,
   ...
 }: let
   cfg = config.systemSettings.docker;
