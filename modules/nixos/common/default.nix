@@ -41,7 +41,7 @@
     };
 
     # Packages
-    packages.enable = lib.mkDefault true;
+    packages.common.enable = lib.mkDefault true;
 
     # Python
     python.enable = lib.mkDefault true;

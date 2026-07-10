@@ -8,7 +8,6 @@
   imports = [
     ../../../vars
     ../../../modules/nixos
-    ../../../modules/nixos/optional/desktop-cli.nix
     ../../../modules/users
     ../../../modules/wsl
   ];
@@ -28,6 +27,7 @@
 
   systemSettings = {
     adb.enable = true;
+    packages.extra.enable = true;
   };
 
   wsl = {

@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
 
     ../../../modules/nixos
-    ../../../modules/nixos/optional/smb.nix
     ../../../modules/users
   ];
 

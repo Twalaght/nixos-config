@@ -1,12 +1,13 @@
+# Common system packages.
 {
   lib,
   config,
   pkgs,
   ...
 }: let
-  cfg = config.systemSettings.packages;
+  cfg = config.systemSettings.packages.common;
 in {
-  options.systemSettings.packages = {
+  options.systemSettings.packages.common = {
     enable = lib.mkEnableOption "Enable default system packages";
   };
 

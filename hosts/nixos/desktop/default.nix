@@ -11,11 +11,6 @@
     ./hardware-configuration.nix
 
     ../../../modules/nixos
-    ../../../modules/nixos/optional/cinnamon.nix
-    ../../../modules/nixos/optional/desktop-cli.nix
-    ../../../modules/nixos/optional/nvidia.nix
-    ../../../modules/nixos/optional/pipewire.nix
-    ../../../modules/nixos/optional/steam.nix
     ../../../modules/users
   ];
 
@@ -23,7 +18,12 @@
 
   systemSettings = {
     adb.enable = true;
+    cinnamon.enable = true;
     grub.enable = true;
+    nvidia.enable = true;
+    packages.extra.enable = true;
+    pipewire.enable = true;
+    steam.enable = true;
   };
 
   # List of packages installed in desktop profile.
