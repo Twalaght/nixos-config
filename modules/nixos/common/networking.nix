@@ -24,23 +24,19 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
-      {
-        # Enable networking.
-        networking.networkmanager.enable = true;
+  config = lib.mkIf cfg.enable {
+    networking = {
+      # Enable networking.
+      networkmanager.enable = true;
 
-        # Define system hostname.
-        networking.hostName = cfg.hostname;
-      }
+      # Define system hostname.
+      hostName = cfg.hostname;
 
       # Configure network proxy if necessary.
-      (lib.mkIf (cfg.proxy != null) {
-        networking.proxy.default = cfg.proxy;
-      })
-      (lib.mkIf (cfg.noProxy != null) {
-        networking.proxy.default = cfg.proxy;
-      })
-    ]
-  );
+      proxy = {
+        default = lib.mkIf (cfg.proxy != null) cfg.proxy;
+        noProxy = lib.mkIf (cfg.noProxy != null) cfg.noProxy;
+      };
+    };
+  };
 }
