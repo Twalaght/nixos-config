@@ -1,4 +1,4 @@
-# Android Debug Bridge and it's associated sync utility.
+# Android Debug Bridge and the ADBSync utility.
 {
   lib,
   fetchFromGitHub,
@@ -7,6 +7,8 @@
   myLib,
   ...
 }: let
+  cfg = config.systemSettings.adb;
+
   better-adb-sync = pkgs.python3.pkgs.buildPythonApplication rec {
     pname = "better-adb-sync";
     version = "1.4.0";
@@ -36,11 +38,22 @@
     };
   };
 in {
-  environment.systemPackages = with pkgs; [
-    android-tools
-    better-adb-sync
-  ];
+  options.systemSettings.adb = {
+    enable = lib.mkEnableOption "Enable Android Debug Bridge and ADBSync";
+    users = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Users to add to the adbsync group";
+    };
+  };
 
-  # Add admin users to the adbsync group.
-  users = myLib.generateUserGroups config.userInfo.admins ["adbsync"];
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      android-tools
+      better-adb-sync
+    ];
+
+    # Add users to the adbsync group.
+    users = myLib.generateUserGroups cfg.users ["adbsync"];
+  };
 }
