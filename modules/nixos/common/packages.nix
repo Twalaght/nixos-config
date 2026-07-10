@@ -22,6 +22,7 @@
     neovim
     pciutils
     pre-commit
+    ranger
     shellcheck
     stow
     wget
