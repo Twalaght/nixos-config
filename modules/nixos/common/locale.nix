@@ -31,10 +31,12 @@ in {
 
   config = lib.mkIf cfg.enable {
     # Set localisation properties.
-    i18n.defaultLocale = cfg.defaultLocale;
-    i18n.extraLocales = ["${cfg.defaultLocale}/UTF-8"];
-    i18n.extraLocaleSettings = {
-      LC_ALL = cfg.defaultLocale; # This overrides all other LC_* settings.
+    i18n = {
+      inherit (cfg) defaultLocale;
+      extraLocales = ["${cfg.defaultLocale}/UTF-8"];
+      extraLocaleSettings = {
+        LC_ALL = cfg.defaultLocale; # This overrides all other LC_* settings.
+      };
     };
 
     console.keyMap = cfg.keyMap;
