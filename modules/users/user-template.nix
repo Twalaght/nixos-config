@@ -18,9 +18,12 @@
   mapping = config.vars.user_mapping.${name} or {};
   shellName = lib.getName shell;
   groups =
-    if cfg.admin == true
-    then ["networkmanager" "wheel"]
-    else extraGroups;
+    (
+      if cfg.admin == true
+      then ["networkmanager" "wheel"]
+      else []
+    )
+    ++ extraGroups ++ cfg.extraGroups;
   userName =
     if username == null
     then mapping.name or name
@@ -37,15 +40,15 @@ in {
       default = admin;
       description = "Admin status of the user";
     };
-    additionalGroups = lib.mkOption {
+    extraGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [];
-      description = "Additional groups to add the user to";
+      description = "Extra groups to add the user to";
     };
-    additionalAuthKeys = lib.mkOption {
+    extraAuthKeys = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [];
-      description = "Additional OpenSSH authorized keys to add to the user";
+      description = "Extra OpenSSH authorized keys to add to the user";
     };
   };
 
@@ -60,11 +63,11 @@ in {
     users.users.${userName} = {
       isNormalUser = true;
       description = userDescription;
-      extraGroups = groups ++ cfg.additionalGroups;
+      extraGroups = groups;
       inherit shell;
       password = lib.mkIf (noPassword == true) "";
       initialHashedPassword = lib.mkIf (noPassword == false && initialHashedPassword != null) initialHashedPassword;
-      openssh.authorizedKeys.keys = opensshKeys ++ cfg.additionalAuthKeys;
+      openssh.authorizedKeys.keys = opensshKeys ++ cfg.extraAuthKeys;
     };
 
     # Enable the program associated with the users shell.
@@ -73,12 +76,9 @@ in {
     programs.fish.enable = lib.mkIf (shellName == "fish") (lib.mkDefault true);
 
     # Make default groups if they were not already defined.
-    users.groups = builtins.listToAttrs (
-      map (group: {
-        name = group;
-        value = lib.mkDefault {};
-      })
-      (groups ++ cfg.additionalGroups)
-    );
+    users.groups = lib.genAttrs groups (group: lib.mkDefault {});
+
+    # Add the user to the admins list, if they were an admin.
+    userInfo.admins = lib.mkIf (admin == true) [userName];
   };
 }
