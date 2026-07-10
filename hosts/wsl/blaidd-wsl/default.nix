@@ -1,15 +1,13 @@
 {
+  lib,
   config,
   pkgs,
   pkgs-unstable,
-  lib,
-  inputs,
   ...
 }: {
   imports = [
     ../../../vars
-    ../../../modules/nixos/common
-    ../../../modules/nixos/optional/adb.nix
+    ../../../modules/nixos
     ../../../modules/nixos/optional/desktop-cli.nix
     ../../../modules/users
     ../../../modules/wsl
@@ -27,6 +25,10 @@
   ];
 
   users.mantissa.enable = true;
+
+  systemSettings = {
+    adb.enable = true;
+  };
 
   wsl = {
     enable = true;

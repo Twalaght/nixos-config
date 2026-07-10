@@ -1,8 +1,8 @@
 # Server specific config.
 {
+  lib,
   config,
   pkgs,
-  lib,
   ...
 }: {
   imports = [
@@ -11,13 +11,16 @@
 
     ./hardware-configuration.nix
 
-    ../../../modules/nixos/common
-    ../../../modules/nixos/optional/bootloader.nix
+    ../../../modules/nixos
     ../../../modules/nixos/optional/smb.nix
     ../../../modules/users
   ];
 
   users.mantissa.enable = true;
+
+  systemSettings = {
+    grub.enable = true;
+  };
 
   # Set SMB config secrets owner for all config files.
   sops.secrets =

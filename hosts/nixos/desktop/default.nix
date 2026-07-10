@@ -1,19 +1,16 @@
 # Desktop specific config.
 {
+  lib,
   config,
   pkgs,
   pkgs-unstable,
-  lib,
-  inputs,
   ...
 }: {
   imports = [
     ../../../vars
     ./hardware-configuration.nix
 
-    ../../../modules/nixos/common
-    ../../../modules/nixos/optional/adb.nix
-    ../../../modules/nixos/optional/bootloader.nix
+    ../../../modules/nixos
     ../../../modules/nixos/optional/cinnamon.nix
     ../../../modules/nixos/optional/desktop-cli.nix
     ../../../modules/nixos/optional/nvidia.nix
@@ -23,6 +20,11 @@
   ];
 
   users.mantissa.enable = true;
+
+  systemSettings = {
+    adb.enable = true;
+    grub.enable = true;
+  };
 
   # List of packages installed in desktop profile.
   environment.systemPackages =
