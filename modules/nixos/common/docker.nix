@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  myLib,
   ...
 }: let
   cfg = config.systemSettings.docker;
@@ -19,10 +20,6 @@ in {
     virtualisation.docker.liveRestore = false;
 
     # Add users to the Docker group.
-    users.users = builtins.listToAttrs (map (user: {
-        name = user;
-        value.extraGroups = ["docker"];
-      })
-      cfg.users);
+    users = myLib.generateUserGroups cfg.users ["docker"];
   };
 }

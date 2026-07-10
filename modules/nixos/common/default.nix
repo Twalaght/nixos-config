@@ -17,7 +17,7 @@
   systemSettings = {
     # Docker
     docker.enable = lib.mkDefault true;
-    docker.users = lib.mkDefault [config.vars.user_mapping.mantissa.name];
+    docker.users = lib.mkDefault config.userInfo.admins;
 
     # Locale
     locale.enable = lib.mkDefault true;
