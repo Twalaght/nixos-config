@@ -35,6 +35,9 @@ in
         config._module.args = {
           inherit name;
           inherit system;
+          myLib = import ./helpers.nix {
+            inherit (pkgs) lib;
+          };
         };
       }
     ];
