@@ -1,8 +1,13 @@
-{...}: {
+{lib, ...}: {
   imports = [
     ./git.nix
     ./homemanager.nix
     ./neovim.nix
-    ./zsh.nix
+    ./shell.nix
   ];
+
+  homeSettings = {
+    # Shell
+    shell.enable = lib.mkDefault true;
+  };
 }
