@@ -43,10 +43,11 @@ in {
 
     programs.bash = lib.mkIf (builtins.elem "bash" cfg.shell) {
       enable = true;
-      initExtra = ''
-        if [ -f "${config.xdg.configHome}/shell/bash/.bashrc" ]; then
-          . "${config.xdg.configHome}/shell/bash/.bashrc"
-        fi
+      sessionVariables = {
+        HOME_MANAGER_FLAKE_CONFIGURATION = "${name}-${system}";
+      };
+      profileExtra = ''
+        [[ -f "$HOME/.config/shell/bash/.bashrc" ]] && source "$HOME/.config/shell/bash/.bashrc"
       '';
     };
 

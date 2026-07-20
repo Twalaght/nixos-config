@@ -9,5 +9,6 @@
   homeSettings = {
     # Shell
     shell.enable = lib.mkDefault true;
+    shell.shell = ["zsh" "bash"];
   };
 }
