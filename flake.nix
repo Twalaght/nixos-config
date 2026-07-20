@@ -39,6 +39,9 @@
       desktop = mkSystem "desktop" {
         system = "x86_64-linux";
       };
+      elster = mkSystem "elster" {
+        system = "x86_64-linux";
+      };
       blaidd-wsl = mkSystem "blaidd-wsl" {
         system = "x86_64-linux";
         wsl = true;
