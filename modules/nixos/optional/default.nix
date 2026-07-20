@@ -10,6 +10,7 @@
     ./nvidia.nix
     ./packages.nix
     ./pipewire.nix
+    ./rgb.nix
     ./smb.nix
     ./steam.nix
   ];
@@ -35,6 +36,9 @@
 
     # Pipewire
     pipewire.enable = lib.mkDefault false;
+
+    # RGB
+    rgb.enable = lib.mkDefault false;
 
     # SMB
     smb.enable = lib.mkDefault false;
