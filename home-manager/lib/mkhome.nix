@@ -31,6 +31,8 @@ in
     modules = [
       ../users/${name}
 
+      inputs.plasma-manager.homeModules.plasma-manager
+
       {
         config._module.args = {
           inherit name;
