@@ -30,8 +30,8 @@
     ...
   } @ inputs: let
     # List of users and supported system architectures to make configurations for.
-    users = ["mantissa" "mantissa-desktop" "glorp"];
-    systems = ["x86_64-linux" "x86_64-darwin"];
+    users = ["mantissa" "mantissa-desktop" "mantissa-work" "glorp"];
+    systems = ["x86_64-linux" "aarch64-darwin"];
 
     # Import the home helper function with required inputs.
     mkHome = import ./lib/mkhome.nix {
