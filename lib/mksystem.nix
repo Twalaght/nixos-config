@@ -61,6 +61,9 @@ in
           isWsl = wsl;
           myLib = import ./helpers.nix {inherit (pkgs) lib;};
         };
+
+        # Set Git commit hash for the system's version.
+        config.system.configurationRevision = self.rev or self.dirtyRev or null;
       }
     ];
   }
