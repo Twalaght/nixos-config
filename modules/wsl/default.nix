@@ -3,6 +3,6 @@
     ./docker.nix
   ];
 
-  # Regsiter Windows executables.
+  # Register Windows executables.
   wsl.interop.register = true;
 }
