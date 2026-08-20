@@ -15,6 +15,7 @@
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = [];
 
   fileSystems."/" = {

@@ -42,7 +42,10 @@
   };
 
   environment.systemPackages =
-    (with pkgs; [
+    [
+      inputs.alga.packages.${pkgs.system}.default
+    ]
+    ++ (with pkgs; [
       freetube
       kitty
       moonlight-qt
@@ -82,9 +85,9 @@
       sddm = {
         enable = true;
         wayland.enable = true;
-        extraPackages = with pkgs-unstable; [
-          kdePackages.plasma-bigscreen
-        ];
+        # extraPackages = with pkgs-unstable; [
+        #   kdePackages.plasma-bigscreen
+        # ];
       };
     };
   };
