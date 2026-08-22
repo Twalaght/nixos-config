@@ -2,6 +2,7 @@
 
 target=""
 verb=""
+sudo_cmd="sudo"
 
 function usage {
     echo "Usage $0 [-t|--target HOST] REBUILD_VERB:"
@@ -53,6 +54,9 @@ if [[ -n "$target" ]]; then
         exit 1
     fi
 
+    # Do not use sudo on the rebuild.
+    sudo_cmd=""
+
     # Set the flake identifier environment variable from the host.
     NIXOS_SYSTEM_FLAKE_CONFIGURATION=$(ssh "$target" 'printenv NIXOS_SYSTEM_FLAKE_CONFIGURATION')
 fi
@@ -88,6 +92,6 @@ if [ ! -f "${HARDWARE_FILE}" ] && [[ "${SYSTEM_TYPE}" == "nixos" ]]; then
     ${TARGET:+"ssh $target"} nixos-generate-config --show-hardware-config >> "${HARDWARE_FILE}"
 fi
 
-sudo "${REBUILD_COMMAND}" "${verb:-switch}" \
+"${sudo_cmd}" "${REBUILD_COMMAND}" "${verb:-switch}" \
     --flake "path:.#${NIXOS_SYSTEM_FLAKE_CONFIGURATION}" \
     ${TARGET:+"--target-host $target --ask-sudo-password"}
