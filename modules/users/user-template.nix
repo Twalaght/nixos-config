@@ -78,7 +78,8 @@ in {
     # Make default groups if they were not already defined.
     users.groups = lib.genAttrs groups (group: lib.mkDefault {});
 
-    # Add the user to the admins list, if they were an admin.
+    # Add the user to the admins and trusted users list, if they were an admin.
     userInfo.admins = lib.mkIf (admin == true) [userName];
+    nix.settings.trusted-users = lib.mkIf (admin == true) [userName];
   };
 }
