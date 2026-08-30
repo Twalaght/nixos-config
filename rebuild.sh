@@ -2,7 +2,7 @@
 
 target=""
 verb=""
-sudo_cmd="sudo"
+sudo_cmd="sudo "
 
 function usage {
     echo "Usage $0 [-t|--target HOST] REBUILD_VERB:"
@@ -92,6 +92,7 @@ if [ ! -f "${HARDWARE_FILE}" ] && [[ "${SYSTEM_TYPE}" == "nixos" ]]; then
     ${TARGET:+"ssh $target"} nixos-generate-config --show-hardware-config >> "${HARDWARE_FILE}"
 fi
 
-"${sudo_cmd}" "${REBUILD_COMMAND}" "${verb:-switch}" \
+# shellcheck disable=SC2086
+${sudo_cmd}"${REBUILD_COMMAND}" "${verb:-switch}" \
     --flake "path:.#${NIXOS_SYSTEM_FLAKE_CONFIGURATION}" \
     ${TARGET:+"--target-host $target --ask-sudo-password"}
