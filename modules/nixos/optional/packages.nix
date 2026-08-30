@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }: let
   cfg = config.systemSettings.packages.extra;
@@ -12,10 +13,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      ffmpeg
-      gallery-dl
-      imagemagick
-    ];
+    environment.systemPackages =
+      [
+        inputs.furbox.packages.${pkgs.system}.default
+      ]
+      ++ (with pkgs; [
+        ffmpeg
+        gallery-dl
+        imagemagick
+      ]);
   };
 }

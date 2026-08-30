@@ -21,6 +21,10 @@
     alga = {
       url = "github:Tenzer/alga";
     };
+
+    furbox = {
+      url = "github:Twalaght/furbox";
+    };
   };
 
   outputs = {
