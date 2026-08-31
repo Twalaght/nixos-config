@@ -43,7 +43,7 @@
 
   environment.systemPackages =
     [
-      inputs.alga.packages.${pkgs.system}.default
+      inputs.alga.packages.${pkgs.stdenv.hostPlatform.system}.default
     ]
     ++ (with pkgs; [
       freetube

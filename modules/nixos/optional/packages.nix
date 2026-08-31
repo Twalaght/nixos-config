@@ -15,9 +15,10 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages =
       [
-        inputs.furbox.packages.${pkgs.system}.default
+        inputs.furbox.packages.${pkgs.stdenv.hostPlatform.system}.default
       ]
       ++ (with pkgs; [
+        nicotine-plus
         ffmpeg
         gallery-dl
         imagemagick
