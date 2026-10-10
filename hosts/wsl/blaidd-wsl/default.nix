@@ -3,6 +3,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  systemName,
   ...
 }: {
   imports = [
@@ -32,7 +33,7 @@
 
   wsl = {
     enable = true;
-    defaultUser = config.vars.user_mapping.mantissa.name;
+    defaultUser = config.vars.${systemName}.userMapping.mantissa.name;
     wslConf.automount.options = "metadata";
   };
 

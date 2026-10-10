@@ -1,8 +1,8 @@
 # NixOS system settings.
 {
-  name,
   lib,
   config,
+  systemName,
   ...
 }: let
   cfg = config.systemSettings.nixos;
@@ -28,7 +28,7 @@ in {
 
       # Set a variable such that the rebuild script remembers the target config.
       environment.variables = {
-        NIXOS_SYSTEM_FLAKE_CONFIGURATION = name;
+        NIXOS_SYSTEM_FLAKE_CONFIGURATION = systemName;
       };
 
       # Manage users imperatively after initial setup.

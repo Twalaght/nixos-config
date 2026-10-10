@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  systemName,
   ...
 }: {
   imports = [
@@ -24,7 +25,7 @@
   # Set SMB config secrets owner for all config files.
   sops.secrets =
     lib.genAttrs ["server/smb/wolfram"]
-    (_: {owner = config.users.users.${config.vars.user_mapping.mantissa.name}.name;});
+    (_: {owner = config.users.users.${config.vars.${systemName}.userMapping.mantissa.name}.name;});
 
   systemSettings.smb = {
     enable = true;

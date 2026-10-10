@@ -2,6 +2,7 @@
   self,
   config,
   pkgs,
+  systemName,
   ...
 }: {
   imports = [
@@ -17,7 +18,7 @@
   nix.settings.experimental-features = "nix-command flakes";
 
   system = {
-    primaryUser = config.vars.user_mapping.mantissa.name;
+    primaryUser = config.vars.${systemName}.userMapping.mantissa.name;
     defaults.NSGlobalDomain = {
       InitialKeyRepeat = 25;
       KeyRepeat = 2;

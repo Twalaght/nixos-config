@@ -6,7 +6,7 @@
   nixpkgs-unstable,
   nix-darwin,
   nixos-wsl,
-}: name: {
+}: systemName: {
   system,
   darwin ? false,
   wsl ? false,
@@ -51,12 +51,12 @@ in
       )
 
       {nixpkgs.pkgs = pkgs;}
-      ../hosts/${systemType}/${name}/default.nix
+      ../hosts/${systemType}/${systemName}/default.nix
 
       # Expose the Darwin and WSL variables for usage within modules.
       {
         config._module.args = {
-          inherit name;
+          inherit systemName;
           isDarwin = darwin;
           isWsl = wsl;
           myLib = import ./helpers.nix {inherit (pkgs) lib;};

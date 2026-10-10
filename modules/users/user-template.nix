@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  systemName,
   ...
 }: {
   name,
@@ -15,7 +16,7 @@
   opensshKeys ? [],
 }: let
   cfg = config.users.${name};
-  mapping = config.vars.user_mapping.${name} or {};
+  mapping = config.vars.${systemName}.userMapping.${name} or {};
   shellName = lib.getName shell;
   groups =
     (

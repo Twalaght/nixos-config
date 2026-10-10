@@ -61,7 +61,7 @@ in
           description = "System hostname";
           default = "nixos-${name}";
         };
-        timezone = timezone;
+        timezone = timezone // {default = cfg.common.timezone;};
 
         userMapping = userMapping // {default = cfg.common.userMapping;};
       })

@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  systemName,
   ...
 }: {
   imports = [
@@ -24,13 +25,13 @@
     # Locale
     locale = {
       enable = lib.mkDefault true;
-      timeZone = lib.mkDefault config.vars.host.timezone;
+      timeZone = lib.mkDefault config.vars.${systemName}.timezone;
     };
 
     # Networking
     networking = {
       enable = lib.mkDefault true;
-      hostname = lib.mkDefault config.vars.host.hostname;
+      hostname = lib.mkDefault config.vars.${systemName}.hostname;
     };
 
     # NixOS
