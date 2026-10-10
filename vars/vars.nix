@@ -43,37 +43,21 @@
     };
 
   cfg = config.vars;
-in
-  with lib; {
-    options.vars =
-      {
-        # TODO - Deprecated, replaced by common and per-host user mapping.
-        user_mapping = userMapping;
-
-        common = {
-          userMapping = userMapping;
-          timezone = timezone;
-        };
-      }
-      // lib.genAttrs machines (name: {
-        hostname = mkOption {
-          type = types.str;
-          description = "System hostname";
-          default = "nixos-${name}";
-        };
-        timezone = timezone // {default = cfg.common.timezone;};
-
-        userMapping = userMapping // {default = cfg.common.userMapping;};
-      })
-      // {
-        # TODO - Deprecated, replaced by per system block
-        host = {
-          hostname = mkOption {
-            type = types.str;
-            description = "System hostname";
-            default = "nixos-${name}";
-          };
-          timezone = timezone;
-        };
+in {
+  options.vars =
+    {
+      common = {
+        timezone = timezone;
+        userMapping = userMapping;
       };
-  }
+    }
+    // lib.genAttrs machines (name: {
+      hostname = lib.mkOption {
+        type = lib.types.str;
+        description = "System hostname";
+        default = "nixos-${name}";
+      };
+      timezone = timezone // {default = cfg.common.timezone;};
+      userMapping = userMapping // {default = cfg.common.userMapping;};
+    });
+}
