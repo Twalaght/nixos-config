@@ -2,7 +2,7 @@
 
 target=""
 verb=""
-sudo_cmd="sudo "
+use_sudo="true"
 
 function usage {
     echo "Usage $0 [-t|--target HOST] REBUILD_VERB:"
@@ -55,7 +55,7 @@ if [[ -n "$target" ]]; then
     fi
 
     # Do not use sudo on the rebuild.
-    sudo_cmd=""
+    use_sudo="false"
 
     # Set the flake identifier environment variable from the host.
     NIXOS_SYSTEM_FLAKE_CONFIGURATION=$(ssh "$target" 'printenv NIXOS_SYSTEM_FLAKE_CONFIGURATION')
@@ -89,10 +89,19 @@ fi
 HARDWARE_FILE="hosts/${SYSTEM_TYPE}/${NIXOS_SYSTEM_FLAKE_CONFIGURATION}/hardware-configuration.nix"
 if [ ! -f "${HARDWARE_FILE}" ] && [[ "${SYSTEM_TYPE}" == "nixos" ]]; then
     echo "Generating hardware config for host ${NIXOS_SYSTEM_FLAKE_CONFIGURATION}"
-    ${TARGET:+"ssh $target"} nixos-generate-config --show-hardware-config >> "${HARDWARE_FILE}"
+    ${target:+"ssh $target"} nixos-generate-config --show-hardware-config >> "${HARDWARE_FILE}"
 fi
 
-# shellcheck disable=SC2086
-${sudo_cmd}"${REBUILD_COMMAND}" "${verb:-switch}" \
+sudo_cmd=()
+if [[ $use_sudo == true ]]; then
+    sudo_cmd=(sudo)
+fi
+
+target_args=()
+if [[ -n $target ]]; then
+    target_args+=(--target-host "$target" --ask-sudo-password)
+fi
+
+"${sudo_cmd[@]}" "${REBUILD_COMMAND}" "${verb:-switch}" \
     --flake "path:.#${NIXOS_SYSTEM_FLAKE_CONFIGURATION}" \
-    ${TARGET:+"--target-host $target --ask-sudo-password"}
+    "${target_args[@]}"
