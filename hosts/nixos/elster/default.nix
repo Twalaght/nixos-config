@@ -5,6 +5,7 @@
   pkgs-unstable,
   lib,
   inputs,
+  systemName,
   ...
 }: {
   imports = [
@@ -28,6 +29,10 @@
   };
 
   systemSettings = {
+    bluetooth = {
+      enable = true;
+      hostname = config.vars.${systemName}.hostname;
+    };
     pipewire.enable = true;
     intelArc.enable = true;
     steam.enable = true;
@@ -124,26 +129,6 @@
       RemainAfterExit = true;
     };
   };
-
-  # Load Bluetooth-related kernel modules at boot
-  boot.kernelModules = ["usb" "xhci_hcd" "btusb" "bluetooth"];
-
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        Name = "elster"; # Used my pc's name
-        ControllerMode = "dual";
-        FastConnectable = true;
-        Experimental = true;
-      };
-      Policy = {AutoEnable = true;};
-      # 1 is enabled and is enabled by default
-      LE = {EnableAdvMonInterleaveScan = "1";};
-    };
-  };
-  services.blueman.enable = true;
 
   systemSettings.networking.hostname = "elster";
 

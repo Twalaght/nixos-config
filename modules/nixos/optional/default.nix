@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./adb.nix
+    ./bluetooth.nix
     ./cinnamon.nix
     ./grub.nix
     ./intel_arc.nix
@@ -22,6 +23,9 @@
       enable = lib.mkDefault false;
       users = lib.mkDefault config.userInfo.admins;
     };
+
+    # Bluetooth
+    bluetooth.enable = lib.mkDefault false;
 
     # Cinnamon desktop environment
     cinnamon.enable = lib.mkDefault false;
