@@ -29,6 +29,7 @@
 
   systemSettings = {
     pipewire.enable = true;
+    intelArc.enable = true;
     steam.enable = true;
     grub.enable = true;
 
@@ -90,17 +91,6 @@
         # ];
       };
     };
-  };
-
-  # Intel Arc B570 Drivers
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      vpl-gpu-rt
-      libvdpau-va-gl
-      intel-media-driver
-      intel-vaapi-driver
-    ];
   };
 
   systemd.services.alga-power-on = {

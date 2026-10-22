@@ -7,6 +7,7 @@
     ./adb.nix
     ./cinnamon.nix
     ./grub.nix
+    ./intel_arc.nix
     ./nvidia.nix
     ./packages.nix
     ./pipewire.nix
@@ -27,6 +28,9 @@
 
     # GRUB bootloader
     grub.enable = lib.mkDefault false;
+
+    # Intel Arc
+    intelArc.enable = lib.mkDefault false;
 
     # Nvidia
     nvidia.enable = lib.mkDefault false;
