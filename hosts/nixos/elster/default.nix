@@ -81,7 +81,7 @@
     displayManager = {
       autoLogin = {
         enable = true;
-        user = "glorp";
+        user = config.users.glorp.username;
       };
 
       defaultSession = "plasma-bigscreen-wayland";

@@ -8,15 +8,13 @@
   name,
   admin ? false,
   noPassword ? false,
-  username ? null,
-  description ? null,
   shell ? pkgs.zsh,
   initialHashedPassword ? "$2b$12$OYdcZxJ36JbTLIs5mHa45eXkJGinnFgHBmo2.t9FqAEhEyeg3yqA2",
   extraGroups ? [],
   opensshKeys ? [],
 }: let
   cfg = config.users.${name};
-  mapping = config.vars.${systemName}.userMapping.${name} or {};
+  mapping = config.vars.${systemName}.userMapping.${name};
   shellName = lib.getName shell;
   groups =
     (
@@ -25,14 +23,6 @@
       else []
     )
     ++ extraGroups ++ cfg.extraGroups;
-  userName =
-    if username == null
-    then mapping.name or name
-    else username;
-  userDescription =
-    if description == null
-    then mapping.description or name
-    else description;
 in {
   options.users.${name} = {
     enable = lib.mkEnableOption "Enable the user account for `${name}`";
@@ -40,6 +30,16 @@ in {
       type = lib.types.bool;
       default = admin;
       description = "Admin status of the user";
+    };
+    username = lib.mkOption {
+      type = lib.types.str;
+      default = mapping.name;
+      description = "Name of the user account";
+    };
+    description = lib.mkOption {
+      type = lib.types.str;
+      default = mapping.description;
+      description = "Description of the user account";
     };
     extraGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -61,9 +61,9 @@ in {
       }
     ];
 
-    users.users.${userName} = {
+    users.users.${cfg.username} = {
       isNormalUser = true;
-      description = userDescription;
+      inherit (cfg) description;
       extraGroups = groups;
       inherit shell;
       password = lib.mkIf (noPassword == true) "";
@@ -80,7 +80,7 @@ in {
     users.groups = lib.genAttrs groups (group: lib.mkDefault {});
 
     # Add the user to the admins and trusted users list, if they were an admin.
-    userInfo.admins = lib.mkIf (admin == true) [userName];
-    nix.settings.trusted-users = lib.mkIf (admin == true) [userName];
+    userInfo.admins = lib.mkIf (admin == true) [cfg.username];
+    nix.settings.trusted-users = lib.mkIf (admin == true) [cfg.username];
   };
 }

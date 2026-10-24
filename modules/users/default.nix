@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   imports = [
     ./glorp.nix
     ./io.nix
