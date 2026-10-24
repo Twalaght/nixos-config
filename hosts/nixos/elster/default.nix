@@ -29,6 +29,11 @@
   };
 
   systemSettings = {
+    alga = {
+      enable = true;
+      enableBootService = true;
+      inputName = "HDMI_1";
+    };
     bluetooth = {
       enable = true;
       hostname = config.vars.${systemName}.hostname;
@@ -48,10 +53,7 @@
   };
 
   environment.systemPackages =
-    [
-      inputs.alga.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ]
-    ++ (with pkgs; [
+    (with pkgs; [
       freetube
       kitty
       moonlight-qt
