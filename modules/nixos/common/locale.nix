@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  systemVars,
   ...
 }: let
   cfg = config.systemSettings.locale;
@@ -24,7 +25,7 @@ in {
     };
     timeZone = lib.mkOption {
       type = lib.types.str;
-      default = "Etc/UTC";
+      default = systemVars.timezone;
       description = "System time zone";
     };
   };

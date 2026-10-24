@@ -20,9 +20,11 @@
     adb.enable = true;
     cinnamon.enable = true;
     grub.enable = true;
+    nixos.hardwareClockInLocalTime = true;
     nvidia.enable = true;
     packages.extra.enable = true;
     pipewire.enable = true;
+    security.sudoTimeout = 60;
     steam.enable = true;
   };
 

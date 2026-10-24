@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  systemVars,
   ...
 }: let
   cfg = config.systemSettings.networking;
@@ -9,7 +10,7 @@ in {
     enable = lib.mkEnableOption "Enable system networking";
     hostname = lib.mkOption {
       type = lib.types.str;
-      default = "nixos";
+      default = systemVars.hostname;
       description = "System hostname";
     };
     proxy = lib.mkOption {

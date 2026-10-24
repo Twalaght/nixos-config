@@ -42,7 +42,7 @@ in {
     enable = lib.mkEnableOption "Enable Android Debug Bridge and ADBSync";
     users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = config.userInfo.admins;
       description = "Users to add to the adbsync group";
     };
   };

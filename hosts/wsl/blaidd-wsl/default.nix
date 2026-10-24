@@ -29,11 +29,17 @@
   systemSettings = {
     adb.enable = true;
     packages.extra.enable = true;
+    security.sudoTimeout = 60;
+  };
+
+  wslSettings = {
+    docker.enable = true;
+    windows.enable = true;
   };
 
   wsl = {
     enable = true;
-    defaultUser = config.vars.${systemName}.userMapping.mantissa.name;
+    defaultUser = config.users.mantissa.username;
     wslConf.automount.options = "metadata";
   };
 

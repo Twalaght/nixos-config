@@ -1,8 +1,6 @@
 {...}: {
   imports = [
     ./docker.nix
+    ./windows.nix
   ];
-
-  # Register Windows executables.
-  wsl.interop.register = true;
 }
