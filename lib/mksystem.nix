@@ -53,17 +53,21 @@ in
       {nixpkgs.pkgs = pkgs;}
       ../hosts/${systemType}/${systemName}/default.nix
 
-      # Expose the Darwin and WSL variables for usage within modules.
-      {
-        config._module.args = {
+      # Expose the system info and personal library for usage within modules.
+      ({
+        config,
+        pkgs,
+        ...
+      }: {
+        _module.args = {
           inherit systemName;
-          isDarwin = darwin;
-          isWsl = wsl;
+          inherit systemType;
+          systemVars = config.vars.${systemName};
           myLib = import ./helpers.nix {inherit (pkgs) lib;};
         };
 
         # Set Git commit hash for the system's version.
-        config.system.configurationRevision = self.rev or self.dirtyRev or null;
-      }
+        system.configurationRevision = self.rev or self.dirtyRev or null;
+      })
     ];
   }

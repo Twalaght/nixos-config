@@ -100,39 +100,5 @@
     };
   };
 
-  systemd.services.alga-power-on = {
-    description = "Power on and select HDMI1 via alga";
-
-    wantedBy = ["default.target"];
-
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-      Environment = [
-        "HOME=/root"
-        "XDG_CONFIG_HOME=/root/.config"
-      ];
-
-      ExecStart = pkgs.writeShellScript "alga-power-on" ''
-        echo "Running: alga power on"
-        until ${inputs.alga.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/alga power on; do
-          echo "alga power on failed; retrying in 1 second..."
-          sleep 1
-        done
-
-        until ${inputs.alga.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/alga input set HDMI_1; do
-          echo "alga input set HDMI1 failed; retrying in 1 second..."
-          sleep 1
-        done
-
-        echo "HDMI_1 selected successfully."
-      '';
-
-      RemainAfterExit = true;
-    };
-  };
-
-  systemSettings.networking.hostname = "elster";
-
   system.stateVersion = "25.11";
 }
