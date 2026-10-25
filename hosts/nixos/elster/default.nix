@@ -9,10 +9,11 @@
   ...
 }: {
   imports = [
-    ../../../vars
-    ./hardware-configuration.nix
     ../../../modules/nixos
     ../../../modules/users
+    ../../../vars
+    ./hardware-configuration.nix
+    ./modules
   ];
 
   users = {
