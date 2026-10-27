@@ -7,10 +7,8 @@
   ...
 }: {
   imports = [
+    ../../../modules
     ../../../vars
-    ../../../modules/nixos
-    ../../../modules/users
-    ../../../modules/wsl
   ];
 
   programs.ssh.startAgent = true;

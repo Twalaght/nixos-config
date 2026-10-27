@@ -7,13 +7,10 @@
   ...
 }: {
   imports = [
-    ../../../vars
+    ../../../modules
     ../../../secrets
-
+    ../../../vars
     ./hardware-configuration.nix
-
-    ../../../modules/nixos
-    ../../../modules/users
   ];
 
   users.mantissa.enable = true;
@@ -25,7 +22,7 @@
   # Set SMB config secrets owner for all config files.
   sops.secrets =
     lib.genAttrs ["server/smb/wolfram"]
-    (_: {owner = config.users.users.${config.vars.${systemName}.userMapping.mantissa.name}.name;});
+    (_: {owner = config.users.mantissa.username;});
 
   systemSettings.smb = {
     enable = true;

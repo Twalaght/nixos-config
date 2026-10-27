@@ -7,11 +7,9 @@
   ...
 }: {
   imports = [
+    ../../../modules
     ../../../vars
     ./hardware-configuration.nix
-
-    ../../../modules/nixos
-    ../../../modules/users
   ];
 
   users.mantissa.enable = true;

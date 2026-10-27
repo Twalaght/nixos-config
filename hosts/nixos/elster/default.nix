@@ -9,8 +9,7 @@
   ...
 }: {
   imports = [
-    ../../../modules/nixos
-    ../../../modules/users
+    ../../../modules
     ../../../vars
     ./hardware-configuration.nix
     ./modules

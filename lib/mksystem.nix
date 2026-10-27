@@ -40,6 +40,7 @@ in
         inherit self;
         inherit inputs;
         inherit pkgs-unstable;
+        inherit systemType; # Must be known before import time.
       };
 
     modules = [
@@ -61,7 +62,6 @@ in
       }: {
         _module.args = {
           inherit systemName;
-          inherit systemType;
           systemVars = config.vars.${systemName};
           myLib = import ./helpers.nix {inherit (pkgs) lib;};
         };
