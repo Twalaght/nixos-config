@@ -32,6 +32,7 @@
 
   wslSettings = {
     docker.enable = true;
+    graphics.enable = true;
     windows.enable = true;
   };
 
