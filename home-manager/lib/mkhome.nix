@@ -6,7 +6,11 @@
   nixpkgs-unstable,
   home-manager,
   ...
-}: name: {system}: let
+}: {
+  user,
+  variant,
+  system,
+}: let
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
@@ -29,13 +33,14 @@ in
     inherit pkgs;
 
     modules = [
-      ../users/${name}
+      ../users/${user}/${variant}.nix
 
       inputs.plasma-manager.homeModules.plasma-manager
 
       {
         config._module.args = {
-          inherit name;
+          name = user;
+          inherit variant;
           inherit system;
           myLib = import ./helpers.nix {
             inherit (pkgs) lib;

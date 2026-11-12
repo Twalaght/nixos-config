@@ -29,23 +29,39 @@
     home-manager,
     ...
   } @ inputs: let
-    # List of users and supported system architectures to make configurations for.
-    users = ["mantissa" "mantissa-desktop" "glorp"];
-    systems = ["x86_64-linux" "x86_64-darwin"];
-
     # Import the home helper function with required inputs.
     mkHome = import ./lib/mkhome.nix {
       inherit self inputs nixpkgs nixpkgs-unstable home-manager;
     };
+
+    # Mapping of all users to their associated variant configs, and supported system types.
+    users = {
+      mantissa = ["default" "desktop"];
+      glorp = ["default"];
+    };
+    systems = ["x86_64-linux" "x86_64-darwin"];
   in {
     home-manager.useGlobalPkgs = true;
-    homeConfigurations = nixpkgs.lib.listToAttrs (nixpkgs.lib.concatMap
-      (user:
-        map (system: {
-          name = "${user}-${system}";
-          value = mkHome user {inherit system;};
-        })
-        systems)
-      users);
+
+    homeConfigurations = builtins.listToAttrs (
+      nixpkgs.lib.flatten (
+        nixpkgs.lib.mapAttrsToList
+        (
+          user: variants:
+            map
+            (
+              variant:
+                map
+                (system: {
+                  name = "${user}-${variant}-${system}";
+                  value = mkHome {inherit user variant system;};
+                })
+                systems
+            )
+            variants
+        )
+        users
+      )
+    );
   };
 }
