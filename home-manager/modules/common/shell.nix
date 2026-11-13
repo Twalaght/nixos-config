@@ -3,7 +3,7 @@
   myLib,
   dotfiles,
   config,
-  name,
+  user,
   variant,
   system,
   ...
@@ -31,7 +31,7 @@ in {
 
       # Ensure Zsh has the flake config set, as it can be unreliable with the dotfiles setup.
       envExtra = ''
-        export HOME_MANAGER_FLAKE_CONFIGURATION="${name}-${variant}-${system}";
+        export HOME_MANAGER_FLAKE_CONFIGURATION="${user}-${variant}-${system}";
       '';
 
       zplug = {
@@ -45,7 +45,7 @@ in {
     programs.bash = lib.mkIf (builtins.elem "bash" cfg.shell) {
       enable = true;
       sessionVariables = {
-        HOME_MANAGER_FLAKE_CONFIGURATION = "${name}-${variant}-${system}";
+        HOME_MANAGER_FLAKE_CONFIGURATION = "${user}-${variant}-${system}";
       };
       profileExtra = ''
         [[ -f "$HOME/.config/shell/bash/.bashrc" ]] && source "$HOME/.config/shell/bash/.bashrc"

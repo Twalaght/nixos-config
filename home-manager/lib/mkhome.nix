@@ -39,9 +39,7 @@ in
 
       {
         config._module.args = {
-          name = user;
-          inherit variant;
-          inherit system;
+          inherit user variant system;
           myLib = import ./helpers.nix {
             inherit (pkgs) lib;
           };
