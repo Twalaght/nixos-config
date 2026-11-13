@@ -39,7 +39,7 @@
       mantissa = ["default" "desktop"];
       glorp = ["default"];
     };
-    systems = ["x86_64-linux" "x86_64-darwin"];
+    systems = ["x86_64-linux" "aarch64-darwin"];
   in {
     home-manager.useGlobalPkgs = true;
 
