@@ -1,7 +1,8 @@
-{lib, ...}:
-with lib; {
-  options.vars = {
-    user_mapping = mkOption {
+{lib, ...}: let
+  users = ["glorp" "io" "mantissa"];
+in {
+  options.vars.userMapping = with lib;
+    mkOption {
       type = types.attrsOf (types.submodule {
         options = {
           name = mkOption {
@@ -15,9 +16,9 @@ with lib; {
         };
       });
       description = "Mapping of defined user attributes to private values";
-      default = lib.genAttrs ["mantissa"] (username: {
+      default = genAttrs users (username: {
         name = username;
+        description = username;
       });
     };
-  };
 }

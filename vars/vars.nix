@@ -1,5 +1,4 @@
 {
-  name,
   lib,
   config,
   ...
@@ -46,10 +45,7 @@
 in {
   options.vars =
     {
-      common = {
-        timezone = timezone;
-        userMapping = userMapping;
-      };
+      common = {inherit timezone userMapping;};
     }
     // lib.genAttrs machines (name: {
       hostname = lib.mkOption {
