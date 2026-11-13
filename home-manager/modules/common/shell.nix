@@ -1,8 +1,8 @@
 {
+  config,
   lib,
   myLib,
   dotfiles,
-  config,
   user,
   variant,
   system,

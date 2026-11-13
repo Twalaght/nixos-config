@@ -1,7 +1,7 @@
 {config, ...}: {
   imports = [
+    ../../modules
     ../../vars
-    ../../modules/common
   ];
 
   # Set the username and home directory for the user being managed.
