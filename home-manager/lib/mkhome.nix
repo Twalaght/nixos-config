@@ -14,12 +14,15 @@
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
+    overlays = [(final: _prev: import ../pkgs final)];
   };
 
   pkgs-unstable = import nixpkgs-unstable {
     inherit system;
     config.allowUnfree = true;
   };
+
+  pkgs-custom = import ../pkgs pkgs;
 in
   inputs.home-manager.lib.homeManagerConfiguration rec {
     extraSpecialArgs =
@@ -28,6 +31,7 @@ in
         inherit self;
         inherit inputs;
         inherit pkgs-unstable;
+        inherit pkgs-custom;
       };
 
     inherit pkgs;
